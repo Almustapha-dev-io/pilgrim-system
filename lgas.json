@@ -1,0 +1,227 @@
+[
+    {
+        "name":"Aniocha North",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Aniocha South",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Bomadi",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Burutu",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ethiope West",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ethiope East",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ika North East",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ika South",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Isoko North",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Isoko South",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ndokwa East",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ndokwa West",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Okpe",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Oshimili North",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Oshimili South",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Patani",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Sapele",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Udu",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ughelli North",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ukwuani",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Ughelli South",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Uvwie",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Warri North",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Warri South",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    },
+    {
+        "name":"Warri South West",
+        "state": {
+            "$oid": "60313fa0734fb337e4516703"
+        },
+        "dateCreated": {
+            "$date": "2021-02-20T16:46:30.641+00:00"
+        }
+    }
+]

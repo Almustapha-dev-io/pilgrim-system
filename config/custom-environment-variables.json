@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "app_jwtPrivateKey",
+    "database": "app_db"
+}
