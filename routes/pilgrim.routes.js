@@ -77,6 +77,7 @@ router.get('/by-year/:id', [auth, initiator_admin, validateObjectId], async (req
         .populate('personalDetails.stateOfOrigin', '-_id name')
         .populate('personalDetails.localGovOfOrigin', '-_id name')
         .populate('createdBy', '-_id name')
+        .populate('enrollmentDetails.enrollmentYear', 'year')
         .sort('enrollmentDetails.enrollmentZone.code');
 
     return res.send(pilgrims);
