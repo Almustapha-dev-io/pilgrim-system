@@ -1,0 +1,6 @@
+::1 - - [13/Mar/2021:13:40:22 +0000] "OPTIONS /api/auths HTTP/1.1" 204 0 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+::1 - - [13/Mar/2021:13:40:23 +0000] "POST /api/auths HTTP/1.1" 200 912 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+::1 - - [13/Mar/2021:13:40:23 +0000] "OPTIONS /api/roles/ HTTP/1.1" 204 0 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+::1 - - [13/Mar/2021:13:40:25 +0000] "GET /api/roles/ HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+::1 - - [13/Mar/2021:13:40:25 +0000] "OPTIONS /api/users/by-role/603123d9b1608939cc9bc6ea HTTP/1.1" 204 0 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+::1 - - [13/Mar/2021:13:40:27 +0000] "GET /api/users/by-role/603123d9b1608939cc9bc6ea HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
