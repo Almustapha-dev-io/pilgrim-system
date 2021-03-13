@@ -191,7 +191,7 @@ router.get('/by-email/:email', [auth, superAdmin], async (req, res) => {
     res.send(user);
 });
 
-router.get('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+router.get('/:id', [auth, validateObjectId], async (req, res) => {
     const user = await User.findById(req.params.id)
         .populate('role', '_id name')
         .populate('localGovernment', '_id name code');
