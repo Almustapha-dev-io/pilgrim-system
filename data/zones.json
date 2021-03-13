@@ -1,0 +1,251 @@
+[{
+  "_id": {
+    "$oid": "60313b60c0f50621d8e7894d"
+  },
+  "name": "SUPER-ADMIN",
+  "code": "00",
+  "dateCreated": {
+    "$date": "2021-02-20T16:40:00.097Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313beec0f50621d8e7894f"
+  },
+  "name": "CHIKUN",
+  "code": "ck",
+  "dateCreated": {
+    "$date": "2021-02-20T16:42:22.764Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c07307ade4ed08e607d"
+  },
+  "name": "GIWA",
+  "code": "gw",
+  "dateCreated": {
+    "$date": "2021-02-20T16:42:47.899Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c17307ade4ed08e607e"
+  },
+  "name": "IKARA",
+  "code": "ra",
+  "dateCreated": {
+    "$date": "2021-02-20T16:43:03.984Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c3d307ade4ed08e607f"
+  },
+  "name": "JEMA'A",
+  "code": "jma",
+  "dateCreated": {
+    "$date": "2021-02-20T16:43:41.709Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c4f307ade4ed08e6080"
+  },
+  "name": "KACHIA",
+  "code": "kch",
+  "dateCreated": {
+    "$date": "2021-02-20T16:43:59.334Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c6b307ade4ed08e6081"
+  },
+  "name": "KADUNA NORTH",
+  "code": "kn",
+  "dateCreated": {
+    "$date": "2021-02-20T16:44:27.713Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c79307ade4ed08e6082"
+  },
+  "name": "KADUNA SOUTH",
+  "code": "ks",
+  "dateCreated": {
+    "$date": "2021-02-20T16:44:41.243Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313c9b307ade4ed08e6083"
+  },
+  "name": "KAJURU",
+  "code": "kjr",
+  "dateCreated": {
+    "$date": "2021-02-20T16:45:15.133Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313caf307ade4ed08e6084"
+  },
+  "name": "KAURA",
+  "code": "kra",
+  "dateCreated": {
+    "$date": "2021-02-20T16:45:35.242Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313cba307ade4ed08e6085"
+  },
+  "name": "KAURU",
+  "code": "kru",
+  "dateCreated": {
+    "$date": "2021-02-20T16:45:46.175Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313ccc307ade4ed08e6086"
+  },
+  "name": "KUBAU",
+  "code": "kb",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:04.263Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313cda307ade4ed08e6087"
+  },
+  "name": "LERE",
+  "code": "lr",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:18.106Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313ce6307ade4ed08e6088"
+  },
+  "name": "MAKARFI",
+  "code": "mkr",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313d00307ade4ed08e6089"
+  },
+  "name": "SOBA",
+  "code": "sb",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:56.877Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313d22307ade4ed08e608a"
+  },
+  "name": "ZARIA",
+  "code": "zr",
+  "dateCreated": {
+    "$date": "2021-02-20T16:47:30.333Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313d36307ade4ed08e608b"
+  },
+  "name": "KUDAN",
+  "code": "kud",
+  "dateCreated": {
+    "$date": "2021-02-20T16:47:50.426Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6043ca347b58294820ea99d8"
+  },
+  "name": "REVIEWER",
+  "code": "01",
+  "dateCreated": {
+    "$date": "2021-03-06T18:30:12.713Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2a88cc4162455cd57e90"
+  },
+  "name": "SABON GARI",
+  "code": "sgr",
+  "dateCreated": {
+    "$date": "2021-03-12T08:47:04.877Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2aa0cc4162455cd57e91"
+  },
+  "name": "SANGA",
+  "code": "gwt",
+  "dateCreated": {
+    "$date": "2021-03-12T08:47:28.173Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2ab3cc4162455cd57e92"
+  },
+  "name": "ZANGON KATAF",
+  "code": "tf",
+  "dateCreated": {
+    "$date": "2021-03-12T08:47:47.224Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2acccc4162455cd57e93"
+  },
+  "name": "BIRNIN GWARI",
+  "code": "bg",
+  "dateCreated": {
+    "$date": "2021-03-12T08:48:12.043Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2ae7cc4162455cd57e94"
+  },
+  "name": "IGABI",
+  "code": "trk",
+  "dateCreated": {
+    "$date": "2021-03-12T08:48:39.527Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2af6cc4162455cd57e95"
+  },
+  "name": "JABA",
+  "code": "jb",
+  "dateCreated": {
+    "$date": "2021-03-12T08:48:54Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604b2b0acc4162455cd57e96"
+  },
+  "name": "KAGARKO",
+  "code": "kgk",
+  "dateCreated": {
+    "$date": "2021-03-12T08:49:14.444Z"
+  },
+  "__v": 0
+}]

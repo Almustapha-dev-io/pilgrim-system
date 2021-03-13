@@ -12,7 +12,12 @@ const yearSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: false
-    }
+    },
+    dateOpened: {
+        type: Date,
+        default: Date.now
+    },
+    lastClosed: Date
 });
 
 const Year = mongoose.model('Year', yearSchema);

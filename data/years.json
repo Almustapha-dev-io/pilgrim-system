@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "603e997180ba1e0aa863a31c"
+  },
+  "active": false,
+  "year": "2017",
+  "__v": 0,
+  "dateOpened": {
+    "$date": "2017-03-07T10:18:00.684Z"
+  },
+  "lastClosed": {
+    "$date": "2017-06-15T10:20:46.304Z"
+  }
+},{
+  "_id": {
+    "$oid": "6044a7b92ce91c9a9b1a41ae"
+  },
+  "active": false,
+  "year": "2018",
+  "dateOpened": {
+    "$date": "2018-05-09T10:18:00.684Z"
+  },
+  "lastClosed": {
+    "$date": "2018-08-07T10:20:46.304Z"
+  }
+},{
+  "_id": {
+    "$oid": "6044a7e12ce91c9a9b1a41af"
+  },
+  "year": "2019",
+  "active": false,
+  "dateOpened": {
+    "$date": "2019-08-23T10:18:00.684Z"
+  },
+  "lastClosed": {
+    "$date": "2019-11-21T10:20:46.304Z"
+  }
+},{
+  "_id": {
+    "$oid": "6044a8582a05645a4ce61837"
+  },
+  "active": false,
+  "year": "2020",
+  "dateOpened": {
+    "$date": "2020-03-07T10:18:00.684Z"
+  },
+  "__v": 0,
+  "lastClosed": {
+    "$date": "2021-03-07T11:11:48.186Z"
+  }
+},{
+  "_id": {
+    "$oid": "604503fae49e94291045082f"
+  },
+  "active": true,
+  "year": "2021",
+  "dateOpened": {
+    "$date": "2021-03-07T16:48:58.653Z"
+  },
+  "__v": 0,
+  "lastClosed": {
+    "$date": "2021-03-11T20:31:33.777Z"
+  }
+}]

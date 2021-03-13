@@ -64,7 +64,7 @@ const pilgrimSchema = new mongoose.Schema({
             default: 'single',
             minlength: 6,
             maxlength: 12,
-            enum: ['single', 'married', 'divorced', 'widow/widower'],
+            enum: ['single', 'married', 'divorced', 'widow', 'widower'],
             lowercase: true
         },
         homeAddress: {
@@ -142,7 +142,8 @@ const pilgrimSchema = new mongoose.Schema({
         },
         relationship: {
             type: String,
-            enum: ['mother', 'father', 'sibling', 'grand parent', 'uncle', 'aunt', 'cousin', 'niece', 'nephew', 'child', 'spouse'],
+            enum: ['mother', 'father', 'sibling', 'grand parent', 'uncle', 
+                    'aunt', 'cousin', 'niece', 'nephew', 'child', 'spouse'],
             required: true,
             lowercase: true
         },
@@ -246,12 +247,14 @@ const Pilgrim = mongoose.model('Pilgrim', pilgrimSchema);
 
 function validatePilgrim(pilgrim) {
     const schema = {
+ 
         enrollmentDetails: Joi.object({
             hajjExperience: Joi.string().min(4).max(50).required(),
             lastHajjYear: Joi.string().min(4).max(4).required(),
             enrollmentZone: Joi.objectId().required()
         }).required(),
 
+ 
         personalDetails: Joi.object({
             surname: Joi.string().min(2).max(24).required(),
             otherNames: Joi.string().min(2).max(150).required(),
@@ -265,6 +268,7 @@ function validatePilgrim(pilgrim) {
             alternatePhone: Joi.string().min(11).max(11)
         }).required(),
 
+ 
         officeDetails: Joi.object({
             occupation: Joi.string().min(3).max(50).required(),
             placeOfWork: Joi.string().min(3).max(50).required(),
@@ -272,6 +276,7 @@ function validatePilgrim(pilgrim) {
             profession: Joi.string().min(3).max(50).required()
         }).required(),
 
+ 
         nextOfKinDetails: Joi.object({
             fullName: Joi.string().min(5).max(50).required(),
             address: Joi.string().min(5).max(50).required(),
@@ -279,6 +284,7 @@ function validatePilgrim(pilgrim) {
             relationship: Joi.string().required()
         }).required(),
 
+ 
         passportDetails: Joi.object({
             passportType: Joi.string().required(),
             passportNumber: Joi.string().required(),
@@ -295,6 +301,7 @@ function validatePilgrim(pilgrim) {
         }).required()
         ).required(),
 
+ 
         attachedDocuments: Joi.object({
             guarantorFormUrl: Joi.string().required(),
             passportUrl: Joi.string().required(),
@@ -308,7 +315,6 @@ function validatePilgrim(pilgrim) {
 function validatePilgrimForUpdate(pilgrim) {
     const schema = {
         enrollmentDetails: Joi.object({
-            // code: Joi.string().min(7).max(7),
             hajjExperience: Joi.string().min(4).max(50),
             lastHajjYear: Joi.string().min(4).max(4),
             enrollmentZone: Joi.objectId()

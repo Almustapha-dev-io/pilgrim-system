@@ -7,7 +7,6 @@ const lgaSchema = new mongoose.Schema({
         required: true,
         minlength: 2,
         maxlength: 50,
-        lowercase: true,
         trim: true,
     },
     state: {

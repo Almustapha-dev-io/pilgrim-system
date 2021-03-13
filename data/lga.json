@@ -1,0 +1,2322 @@
+[{
+  "_id": {
+    "$oid": "60314249734fb337e4516730"
+  },
+  "name": "Aba North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516731"
+  },
+  "name": "Arochukwu",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516732"
+  },
+  "name": "Aba South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516733"
+  },
+  "name": "Bende",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516734"
+  },
+  "name": "Isiala Ngwa North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516735"
+  },
+  "name": "Ikwuano",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516736"
+  },
+  "name": "Isiala Ngwa South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516737"
+  },
+  "name": "Isuikwuato",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516738"
+  },
+  "name": "Obi Ngwa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516739"
+  },
+  "name": "Ohafia",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e451673a"
+  },
+  "name": "Osisioma",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e451673b"
+  },
+  "name": "Ugwunagbo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e451673c"
+  },
+  "name": "Ukwa East",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e451673d"
+  },
+  "name": "Ukwa West",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e451673e"
+  },
+  "name": "Umuahia North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e451673f"
+  },
+  "name": "Umuahia South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60314249734fb337e4516740"
+  },
+  "name": "Umu Nneochi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516752"
+  },
+  "name": "Demsa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516753"
+  },
+  "name": "Fufure",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516754"
+  },
+  "name": "Ganye",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516755"
+  },
+  "name": "Gayuk",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516756"
+  },
+  "name": "Gombi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516757"
+  },
+  "name": "Grie",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516758"
+  },
+  "name": "Hong",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516759"
+  },
+  "name": "Jada",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e451675a"
+  },
+  "name": "Larmurde",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e451675b"
+  },
+  "name": "Madagali",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e451675c"
+  },
+  "name": "Maiha",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e451675d"
+  },
+  "name": "Mayo Belwa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e451675e"
+  },
+  "name": "Michika",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e451675f"
+  },
+  "name": "Mubi North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516760"
+  },
+  "name": "Mubi South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516761"
+  },
+  "name": "Numan",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516762"
+  },
+  "name": "Shelleng",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516763"
+  },
+  "name": "Song",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516764"
+  },
+  "name": "Toungo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516765"
+  },
+  "name": "Yola North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "603146df734fb337e4516766"
+  },
+  "name": "Yola South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516767"
+  },
+  "name": "Abak",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516768"
+  },
+  "name": "Eastern Obolo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516769"
+  },
+  "name": "Eket",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451676a"
+  },
+  "name": "Esit Eket",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451676b"
+  },
+  "name": "Essien Udim",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451676c"
+  },
+  "name": "Etim Ekpo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451676d"
+  },
+  "name": "Etinan",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451676e"
+  },
+  "name": "Ibeno",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451676f"
+  },
+  "name": "Ibesikpo Asutan",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516770"
+  },
+  "name": "Ibiono-Ibom",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516771"
+  },
+  "name": "Ikot Abasi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516772"
+  },
+  "name": "Ika",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516773"
+  },
+  "name": "Ikono",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516774"
+  },
+  "name": "Ikot Ekpene",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516775"
+  },
+  "name": "Ini",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516776"
+  },
+  "name": "Mkpat-Enin",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516777"
+  },
+  "name": "Itu",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516778"
+  },
+  "name": "Mbo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516779"
+  },
+  "name": "Nsit-Atai",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451677a"
+  },
+  "name": "Nsit-Ibom",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451677b"
+  },
+  "name": "Nsit-Ubium",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451677c"
+  },
+  "name": "Obot Akara",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451677d"
+  },
+  "name": "Okobo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451677e"
+  },
+  "name": "Onna",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e451677f"
+  },
+  "name": "Oron",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516780"
+  },
+  "name": "Udung-Uko",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516781"
+  },
+  "name": "Ukanafun",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516782"
+  },
+  "name": "Oruk Anam",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516783"
+  },
+  "name": "Uruan",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516784"
+  },
+  "name": "Urue-Offong/Oruko",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60316edc734fb337e4516785"
+  },
+  "name": "Uyo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb48"
+  },
+  "name": "Aguata",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb49"
+  },
+  "name": "Anambra East",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb4a"
+  },
+  "name": "Anaocha",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb4b"
+  },
+  "name": "Awka North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb4c"
+  },
+  "name": "Anambra West",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb4d"
+  },
+  "name": "Awka South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb4e"
+  },
+  "name": "Ayamelum",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb4f"
+  },
+  "name": "Dunukofia",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb50"
+  },
+  "name": "Ekwusigo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb51"
+  },
+  "name": "Idemili North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb52"
+  },
+  "name": "Idemili South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb53"
+  },
+  "name": "Ihiala",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb54"
+  },
+  "name": "Njikoka",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb55"
+  },
+  "name": "Nnewi North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb56"
+  },
+  "name": "Nnewi South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb57"
+  },
+  "name": "Ogbaru",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb58"
+  },
+  "name": "Onitsha North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb59"
+  },
+  "name": "Onitsha South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb5a"
+  },
+  "name": "Orumba North",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb5b"
+  },
+  "name": "Orumba South",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317205a2ecd62d7c88fb5c"
+  },
+  "name": "Oyi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb5d"
+  },
+  "name": "Alkaleri",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb5e"
+  },
+  "name": "Bauchi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb5f"
+  },
+  "name": "Bogoro",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb60"
+  },
+  "name": "Damban",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb61"
+  },
+  "name": "Darazo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb62"
+  },
+  "name": "Dass",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb63"
+  },
+  "name": "Gamawa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb64"
+  },
+  "name": "Ganjuwa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb65"
+  },
+  "name": "Giade",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb66"
+  },
+  "name": "Itas/Gadau",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb67"
+  },
+  "name": "Jama'are",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb68"
+  },
+  "name": "Katagum",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb69"
+  },
+  "name": "Kirfi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb6a"
+  },
+  "name": "Misau",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb6b"
+  },
+  "name": "Ningi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb6c"
+  },
+  "name": "Shira",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb6d"
+  },
+  "name": "Tafawa Balewa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb6e"
+  },
+  "name": "Toro",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb6f"
+  },
+  "name": "Warji",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317476a2ecd62d7c88fb70"
+  },
+  "name": "Zaki",
+  "state": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4ede6"
+  },
+  "name": "Agatu",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4ede7"
+  },
+  "name": "Apa",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4ede8"
+  },
+  "name": "Ado",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4ede9"
+  },
+  "name": "Buruku",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edea"
+  },
+  "name": "Gboko",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edeb"
+  },
+  "name": "Guma",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edec"
+  },
+  "name": "Gwer East",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4eded"
+  },
+  "name": "Gwer West",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edee"
+  },
+  "name": "Katsina-Ala",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edef"
+  },
+  "name": "Konshisha",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf0"
+  },
+  "name": "Kwande",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf1"
+  },
+  "name": "Logo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf2"
+  },
+  "name": "Makurdi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf3"
+  },
+  "name": "Obi",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf4"
+  },
+  "name": "Ogbadibo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf5"
+  },
+  "name": "Ohimini",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf6"
+  },
+  "name": "Oju",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf7"
+  },
+  "name": "Okpokwu",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf8"
+  },
+  "name": "Oturkpo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edf9"
+  },
+  "name": "Tarka",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edfa"
+  },
+  "name": "Ukum",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edfb"
+  },
+  "name": "Ushongo",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "6031764f188e941c90b4edfc"
+  },
+  "name": "Vandeikya",
+  "state": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4edfd"
+  },
+  "name": "Abadam",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4edfe"
+  },
+  "name": "Askira/Uba",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4edff"
+  },
+  "name": "Bama",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee00"
+  },
+  "name": "Bayo",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee01"
+  },
+  "name": "Biu",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee02"
+  },
+  "name": "Chibok",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee03"
+  },
+  "name": "Damboa",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee04"
+  },
+  "name": "Dikwa",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee05"
+  },
+  "name": "Guzamala",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee06"
+  },
+  "name": "Gubio",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee07"
+  },
+  "name": "Hawul",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee08"
+  },
+  "name": "Gwoza",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee09"
+  },
+  "name": "Jere",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee0a"
+  },
+  "name": "Kaga",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee0b"
+  },
+  "name": "Kala/Balge",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee0c"
+  },
+  "name": "Konduga",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee0d"
+  },
+  "name": "Kukawa",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee0e"
+  },
+  "name": "Kwaya Kusar",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee0f"
+  },
+  "name": "Mafa",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee10"
+  },
+  "name": "Magumeri",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee11"
+  },
+  "name": "Maiduguri",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee12"
+  },
+  "name": "Mobbar",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee13"
+  },
+  "name": "Marte",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee14"
+  },
+  "name": "Monguno",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee15"
+  },
+  "name": "Ngala",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee16"
+  },
+  "name": "Nganzai",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317859188e941c90b4ee17"
+  },
+  "name": "Shani",
+  "state": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd6e"
+  },
+  "name": "Brass",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd6f"
+  },
+  "name": "Ekeremor",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd70"
+  },
+  "name": "Kolokuma/Opokuma",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd71"
+  },
+  "name": "Nembe",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd72"
+  },
+  "name": "Ogbia",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd73"
+  },
+  "name": "Sagbama",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd74"
+  },
+  "name": "Southern Ijaw",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317bc670c8d33a0c83dd75"
+  },
+  "name": "Yenagoa",
+  "state": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fad9fb"
+  },
+  "name": "Abi",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fad9fc"
+  },
+  "name": "Akamkpa",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fad9fd"
+  },
+  "name": "Akpabuyo",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fad9fe"
+  },
+  "name": "Bakassi",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fad9ff"
+  },
+  "name": "Bekwarra",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada00"
+  },
+  "name": "Biase",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada01"
+  },
+  "name": "Boki",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada02"
+  },
+  "name": "Calabar Municipal",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada03"
+  },
+  "name": "Calabar South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada04"
+  },
+  "name": "Etung",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada05"
+  },
+  "name": "Ikom",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada06"
+  },
+  "name": "Obanliku",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada07"
+  },
+  "name": "Obubra",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada08"
+  },
+  "name": "Obudu",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada09"
+  },
+  "name": "Odukpani",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada0a"
+  },
+  "name": "Ogoja",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada0b"
+  },
+  "name": "Yakuur",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317d92fd988c2880fada0c"
+  },
+  "name": "Yala",
+  "state": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada0d"
+  },
+  "name": "Aniocha North",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada0e"
+  },
+  "name": "Aniocha South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada0f"
+  },
+  "name": "Bomadi",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada10"
+  },
+  "name": "Burutu",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada11"
+  },
+  "name": "Ethiope West",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada12"
+  },
+  "name": "Ethiope East",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada13"
+  },
+  "name": "Ika North East",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada14"
+  },
+  "name": "Ika South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada15"
+  },
+  "name": "Isoko North",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada16"
+  },
+  "name": "Isoko South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada17"
+  },
+  "name": "Ndokwa East",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada18"
+  },
+  "name": "Ndokwa West",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada19"
+  },
+  "name": "Okpe",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada1a"
+  },
+  "name": "Oshimili North",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada1b"
+  },
+  "name": "Oshimili South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada1c"
+  },
+  "name": "Patani",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada1d"
+  },
+  "name": "Sapele",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada1e"
+  },
+  "name": "Udu",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada1f"
+  },
+  "name": "Ughelli North",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada20"
+  },
+  "name": "Ukwuani",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada21"
+  },
+  "name": "Ughelli South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada22"
+  },
+  "name": "Uvwie",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada23"
+  },
+  "name": "Warri North",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada24"
+  },
+  "name": "Warri South",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60317f80fd988c2880fada25"
+  },
+  "name": "Warri South West",
+  "state": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+}]

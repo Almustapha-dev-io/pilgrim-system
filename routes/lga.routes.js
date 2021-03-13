@@ -17,12 +17,12 @@ router.get('/', auth, async (req, res) => {
     res.send(lgas);
 });
 
-router.get('/by-state/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+router.get('/by-state/:id', [auth, validateObjectId], async (req, res) => {
     const lgas = await Lga.find({ state: req.params.id})
         .sort('name')
-        .select('_id name state')
-        .populate('state', '_id name');
-    if (!lgas) return res.status(404).send('Local Gov\'t with given ID not found.');
+        .populate('state', '_id name')
+        .select('_id name state');
+    if (!lgas) return res.status(404).send('Local Gov\'t with given State ID not found.');
 
     res.send(lgas);
 });
@@ -57,12 +57,8 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     const { error } = validateForUpdate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    if (req.body.stateId) {
-        const state = await State.findById(stateId);
-        if (!state) return res.status(404).send('State with give ID not found');    }
-
     const lga = await Lga.findByIdAndUpdate(req.params.id, {
-        $set: { name: req.body.name, state: req.body.stateId }
+        $set: { name: req.body.name }
     }, { new: true, useFindAndModify: false });
     if (!lga) return res.status(404).send('Local gov\'t with given ID not found.');
 

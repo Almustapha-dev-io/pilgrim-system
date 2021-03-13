@@ -11,7 +11,7 @@ const { Role, validate } = require('../models/role.model');
 router.get('/', [auth, superAdmin], async (req, res) => {
     const roles = await Role.find()
         .sort('name')
-        .select('_id name state');
+        .select('_id name');
     
     res.send(roles);
 });

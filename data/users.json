@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "603158a06da5860be084504f"
+  },
+  "name": "superadmin",
+  "email": "admin@app.com",
+  "role": {
+    "$oid": "6031243b67a2064f38438798"
+  },
+  "localGovernment": {
+    "$oid": "60313b60c0f50621d8e7894d"
+  },
+  "password": "$2a$10$bKX2HutJohQxD7txqTocHetdTdKGF49f2dU.G5eLoXyOjPkMk6lxC",
+  "firstLogin": false,
+  "dateCreated": {
+    "$date": "2021-02-20T18:44:48.301Z"
+  },
+  "__v": 0
+}]

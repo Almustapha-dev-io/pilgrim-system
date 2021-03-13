@@ -3,31 +3,41 @@ const winston = require('winston');
 require('winston-mongodb');
 require('express-async-errors');
 
-module.exports = function () {
-    // general handler for logging all uncaught exceptions before app startup 
-    winston.handleExceptions(
-        // log error to console
-        new winston.transports.Console({ colorize: true, prettyPrint: true }),
-        // log error to uncaughtExceptions.log
-        new winston.transports.File({ filename: 'uncaughtExceptions.log', level: 'error' }),
-        // Log error to mongodb
-        new winston.transports.MongoDB({
-            db: config.get('database'),
-            collection: 'uncaughtExceptions',
-            level: 'error'
-        }),
-    );
+
+const consoleTransport = new winston.transports.Console({ format: winston.format.simple() });
+const logFileTransport = new winston.transports.File({ filename: 'logfile.log', format: winston.format.simple() });
+const logMongoTransport = new winston.transports.MongoDB({
+    db: config.get('database'),
+    collection: 'logs',
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
     
-    // general handler for logging unhandled promise rejections
-    process.on('unhandledRejection', (ex) => {
-        // on unhandled promise rejection throw exception to be logged by winston
-        throw ex;
-    });
-    
-    winston.add(winston.transports.File, { filename: 'logfile.log' });
-    winston.add(winston.transports.MongoDB, {
-        db: config.get('database'),
-        collection: 'logs',
-        level: 'error'
-    });
-}
+});
+
+const errorConsoleTransport = new winston.transports.Console({ level: 'error', format: winston.format.json() });
+const errorFileTransport = new winston.transports.File({ 
+    filename: 'uncaughtExceptions.log', 
+    level: 'error', 
+    format: winston.format.errors()
+});
+const errorMongoTransport =  new winston.transports.MongoDB(new winston.transports.MongoDB({
+    db: config.get('database'),
+    collection: 'uncaughtExceptions',
+    level: 'error',
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+}));
+
+const logger = winston.createLogger({
+    level: 'info',
+    transports: [consoleTransport, logMongoTransport, logFileTransport],
+    exceptionHandlers: [errorConsoleTransport,errorFileTransport,errorMongoTransport]
+});
+
+exports.appLogger = logger;
+exports.log = () => {
+    logger.exceptions.handle();
+    process.on('unhandledRejection', (ex) => { throw ex });
+};

@@ -13,8 +13,6 @@ module.exports = async function (req, res, next) {
         const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
         req.user = decoded;
 
-        console.log(decoded);
-
         const userRole = req.user.role;
         if (!userRole) return res.status(400).send('Invalid user role');
 
@@ -35,6 +33,8 @@ module.exports = async function (req, res, next) {
         next();
     }
     catch (ex) {
+        if (ex instanceof jwt.TokenExpiredError) return res.status(599).send('Token expired, sign in.');
+        
         res.status(400).send('Invalid token.');
     }
 }

@@ -1,0 +1,306 @@
+[{
+  "_id": {
+    "$oid": "60313f36aa4e9849d44b9cbb"
+  },
+  "name": "default",
+  "dateCreated": {
+    "$date": "2021-02-20T16:56:22.861Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e45166fa"
+  },
+  "name": "Abia",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e45166fb"
+  },
+  "name": "adamawa",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e45166fc"
+  },
+  "name": "Akwa Ibom",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e45166fd"
+  },
+  "name": "Anambra",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e45166fe"
+  },
+  "name": "Bauchi",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e45166ff"
+  },
+  "name": "Benue",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516700"
+  },
+  "name": "Borno",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516701"
+  },
+  "name": "Bayelsa",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516702"
+  },
+  "name": "Cross River",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516703"
+  },
+  "name": "Delta",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516704"
+  },
+  "name": "Ebonyi",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516705"
+  },
+  "name": "Edo",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516706"
+  },
+  "name": "Ekiti",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516707"
+  },
+  "name": "Enugu",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516708"
+  },
+  "name": "Federal Capital Territory",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516709"
+  },
+  "name": "Gombe",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451670a"
+  },
+  "name": "Jigawa",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451670b"
+  },
+  "name": "Imo",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451670c"
+  },
+  "name": "Kaduna",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451670d"
+  },
+  "name": "Kebbi",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451670e"
+  },
+  "name": "Kano",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451670f"
+  },
+  "name": "Kogi",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516710"
+  },
+  "name": "Lagos",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516711"
+  },
+  "name": "Katsina",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516712"
+  },
+  "name": "Kwara",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516713"
+  },
+  "name": "Nasarawa",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516714"
+  },
+  "name": "Niger",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516715"
+  },
+  "name": "Ogun",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516716"
+  },
+  "name": "Ondo",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516717"
+  },
+  "name": "Rivers",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516718"
+  },
+  "name": "Oyo",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e4516719"
+  },
+  "name": "Osun",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451671a"
+  },
+  "name": "Sokoto",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451671b"
+  },
+  "name": "Plateau",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451671c"
+  },
+  "name": "Taraba",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451671d"
+  },
+  "name": "Yobe",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+},{
+  "_id": {
+    "$oid": "60313fa0734fb337e451671e"
+  },
+  "name": "Zamfara",
+  "dateCreated": {
+    "$date": "2021-02-20T16:46:30.641Z"
+  }
+}]

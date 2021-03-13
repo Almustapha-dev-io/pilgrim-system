@@ -1,4 +1,5 @@
 {
     "jwtPrivateKey": "app_jwtPrivateKey",
-    "database": "app_db"
+    "database": "app_db",
+    "logDb": "app_logDb"
 }

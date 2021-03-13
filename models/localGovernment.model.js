@@ -39,7 +39,7 @@ function validateLocalGovernment (localGovernment) {
 
 function validateLocalGovernmentForUpdate (localGovernment) {
     const schema = {
-        name: Joi.string().min(5).max(255),
+        name: Joi.string().min(3).max(255),
         code: Joi.string().min(2).max(3)
     };
 

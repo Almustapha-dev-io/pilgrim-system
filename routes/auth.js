@@ -6,6 +6,8 @@ const express = require('express');
 const { Year } = require('../models/years.model');
 const router = express.Router();
 
+const { appLogger: logger } = require('../startup/logging');
+
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -19,13 +21,10 @@ router.post('/', async (req, res) => {
     if (!validPassword) return res.status(400).send('Invalid email or password');
 
     const activeYear = await Year.findOne({ active: true });
-
-    const newUserPasswords = ['Password', 'password'];
-    if (newUserPasswords.includes(password)) 
-        return res.status(401).send('Please change default password.');
-        
-
+    
     const token = user.generateAuthToken();
+
+    logger.info(`${user.name}  : ${user.email} Logged in with token: ${token}`);
     res.send({ token, user, activeYear });
 });
 

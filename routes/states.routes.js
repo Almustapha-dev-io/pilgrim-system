@@ -73,7 +73,7 @@ router.delete('/:id', [auth, superAdmin, validateObjectId], async (req, res) => 
         if (!state) return res.status(404).send('State with given ID not found.');
 
         res.send(state);
-    } catch(err) {
+    } catch (err) {
         throw(err);
     }
 });

@@ -4,8 +4,9 @@ const router = express.Router();
 
 const { Year } = require('../models/years.model');
 
-const { reviewer } = require('../middleware/role');
 const auth = require('../middleware/auth');
+const superAdmin = require('../middleware/superAdmin');
+
 const validateObjectId = require('../middleware/validateObjectId');
 
 router.get('/', auth, async (req, res, next) => {
@@ -16,13 +17,18 @@ router.get('/', auth, async (req, res, next) => {
 });
 
 router.get('/get-active', auth, async (req, res) => {
-    const year = await Year.findOne({ active: true });
-    if (!year) return res.status(404).send('There is no active hajj year');
+    const year = await Year.find({ active: true });
 
     res.send(year);
 });
 
-router.post('/open-new-hajj-year', [auth, reviewer], async (req, res) => {
+router.get('/get-inactive', auth, async (req, res) => {
+    const years = await Year.find({ active: false }).sort('-year');
+
+    res.send(years);
+});
+
+router.post('/open-new-hajj-year', [auth, superAdmin], async (req, res) => {
     const date = new Date();
     const newYear = moment(date).format('YYYY');
     
@@ -39,7 +45,7 @@ router.post('/open-new-hajj-year', [auth, reviewer], async (req, res) => {
     res.send(year);
 });
 
-router.put('/reopen-hajj-year', async (req, res) => {
+router.put('/reopen-hajj-year', [auth, superAdmin], async (req, res) => {
     const date = new Date();
     const newYear = moment(date).format('YYYY');
 
@@ -51,9 +57,9 @@ router.put('/reopen-hajj-year', async (req, res) => {
     res.send(year);
 });
 
-router.put('/close-hajj-year', [auth, reviewer, validateObjectId], async (req, res) => {
+router.put('/close-hajj-year', [auth, superAdmin], async (req, res) => {
     const year = await Year.findOneAndUpdate({ active: true }, {
-        $set: { active: false }
+        $set: { active: false, lastClosed: new Date() }
     }, { new: true, useFindAndModify: false });
     if (!year) return res.status(400).send('There is no active hajj year.');
 

@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const number = require('joi/lib/types/number');
 const mongoose = require('mongoose');
 
 const stateSchema = new mongoose.Schema({
@@ -8,7 +7,6 @@ const stateSchema = new mongoose.Schema({
         required: true,
         minlength: 3,
         maxlength: 50,
-        lowercase: true,
         trim: true,
         unique: true
     },

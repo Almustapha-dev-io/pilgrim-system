@@ -24,9 +24,11 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        minlength: 5,
-        maxlength: 1023,
         required: true
+    },
+    firstLogin: {
+        type: Boolean,
+        default: true
     },
     localGovernment: {
         type: mongoose.Schema.Types.ObjectId,
@@ -46,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign( _.pick(this, ['_id', 'name', 'email', 'localGovernment', 'role']),
-        config.get('jwtPrivateKey'));
+        config.get('jwtPrivateKey'), { expiresIn: '7 days' });
     return token;
 };
 
@@ -67,9 +69,17 @@ function validateUserForUpdate (user) {
     const schema = {
         name: Joi.string().min(5).max(50),
         email: Joi.string().min(5).max(50).email(),
-        password: Joi.string().min(5).max(1023),
         roleId: Joi.objectId(),
         localGovernmentId: Joi.objectId(),
+    };
+
+    return Joi.validate(user, schema);
+}
+
+function validatePasswordChange(user) {
+    const schema = {
+        password: Joi.string().min(5).max(128).required(),
+        currentPassword: Joi.string().min(5).max(128).required()
     };
 
     return Joi.validate(user, schema);
@@ -78,3 +88,4 @@ function validateUserForUpdate (user) {
 exports.User = User;
 exports.validate = validateUser;
 exports.validateForUpdate = validateUserForUpdate;  
+exports.validatePassword = validatePasswordChange;

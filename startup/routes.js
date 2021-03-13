@@ -16,7 +16,6 @@ const years = require('../routes/year.routes');
 module.exports = function(app) {
     app.use(express.json());
     app.use(express.static(path.join(__dirname, 'public')));
-
     app.use(cors());
     
     app.use('/api/users', users);

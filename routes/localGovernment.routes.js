@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 
-router.get('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+router.get('/:id', [auth, validateObjectId], async (req, res) => {
     const localGov = await LocalGovernment.findById(req.params.id);
     if (!localGov) return res.status(404).send('Local Gov\'t with given ID not found.');
 

@@ -7,10 +7,8 @@ const bankSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 255,
-        lowercase: true,
         trim: true,
         unique: true,
-        lowercase: true
     },
     dateCreated: {
         type: Date,
