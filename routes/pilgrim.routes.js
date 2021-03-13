@@ -85,117 +85,76 @@ router.get('/by-year/:id', [auth, initiator_admin, validateObjectId], async (req
 
 // create pilgrim initiator
 router.post('/', [auth, initiator], async (req, res) => {
-    try {
-        const { error } = validate(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-        const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails, 
-                passportDetails, paymentHistory, attachedDocuments } = req.body;
-                
-        const  userLga = req.userLga;
+    const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails, 
+            passportDetails, paymentHistory, attachedDocuments } = req.body;
+            
+    const  userLga = req.userLga;
 
-        const year = await Year.findOne({ active: true });
-        if (!year) return res.status(400).send('Hajj registration not opened yet.');
+    const year = await Year.findOne({ active: true });
+    if (!year) return res.status(400).send('Hajj registration not opened yet.');
 
-        const localGov = await LocalGovernment.findById(enrollmentDetails.enrollmentZone);
-        if (!localGov) return res.status(400).send('Invalid enrollment local gov\'t.');
+    const localGov = await LocalGovernment.findById(enrollmentDetails.enrollmentZone);
+    if (!localGov) return res.status(400).send('Invalid enrollment local gov\'t.');
 
-        if (localGov._id.toString() !== userLga.toString())
-            return res.status(400).send('Sorry, you cannot register pilgrims to the selected zone');
-        
-        const state = await State.findById(personalDetails.stateOfOrigin);
-        if (!state) return res.status(400).send('Invalid state of origin.');
+    if (localGov._id.toString() !== userLga.toString())
+        return res.status(400).send('Sorry, you cannot register pilgrims to the selected zone');
+    
+    const state = await State.findById(personalDetails.stateOfOrigin);
+    if (!state) return res.status(400).send('Invalid state of origin.');
 
-        const lgaOfOrigin = await Lga.findById(personalDetails.localGovOfOrigin);
-        if (!lgaOfOrigin) return res.status(400).send('Invalid local gov\'t of origin.');
-        
-        if (lgaOfOrigin.name.trim() === '00') return res.status(400).send('Cannot assign pilgrim to this lga.');
+    const lgaOfOrigin = await Lga.findById(personalDetails.localGovOfOrigin);
+    if (!lgaOfOrigin) return res.status(400).send('Invalid local gov\'t of origin.');
+    
+    if (lgaOfOrigin.name.trim() === '00') return res.status(400).send('Cannot assign pilgrim to this lga.');
 
-        let pilgrimsCount = await Pilgrim.countDocuments({
-            'enrollmentDetails.enrollmentZone': userLga, 
-            'enrollmentDetails.enrollmentYear': year._id
-        });
-        
-        const pilgrimNumber =  `KD000${pilgrimsCount + 1}${localGov.code}-${year.year}`.toUpperCase();
+    let pilgrimsCount = await Pilgrim.countDocuments({
+        'enrollmentDetails.enrollmentZone': userLga, 
+        'enrollmentDetails.enrollmentYear': year._id
+    });
+    
+    const pilgrimNumber =  `KD000${pilgrimsCount + 1}${localGov.code}-${year.year}`.toUpperCase();
 
-        let pilgrim = await Pilgrim.findOne({ 'enrollmentDetails.code': pilgrimNumber });
-        if (pilgrim) return res.status(400).send('A pilgrim exists ' + pilgrimNumber);
+    let pilgrim = await Pilgrim.findOne({ 'enrollmentDetails.code': pilgrimNumber });
+    if (pilgrim) return res.status(400).send('A pilgrim exists ' + pilgrimNumber);
 
-        const body = {
-            enrollmentDetails: {...enrollmentDetails,  code: pilgrimNumber, enrollmentYear: year._id },
-            personalDetails: {...personalDetails},
-            officeDetails: {...officeDetails},
-            nextOfKinDetails: {...nextOfKinDetails},
-            passportDetails: {...passportDetails},
-            paymentHistory: [...paymentHistory],
-            attachedDocuments: {...attachedDocuments},
-            createdBy: req.user._id
-        };
+    const body = {
+        enrollmentDetails: {...enrollmentDetails,  code: pilgrimNumber, enrollmentYear: year._id },
+        personalDetails: {...personalDetails},
+        officeDetails: {...officeDetails},
+        nextOfKinDetails: {...nextOfKinDetails},
+        passportDetails: {...passportDetails},
+        paymentHistory: [...paymentHistory],
+        attachedDocuments: {...attachedDocuments},
+        createdBy: req.user._id
+    };
 
-        pilgrim = new Pilgrim(body);
+    pilgrim = new Pilgrim(body);
 
-        pilgrim = await pilgrim.save();
+    pilgrim = await pilgrim.save();
 
-        res.send(pilgrim);
-    } catch(err) {
-        throw(err);
-    }
+    res.send(pilgrim);
 });
 
 //  update pilgrim admin (lga === pilgrim.lga)
 router.put('/:id', [auth, admin, validateObjectId], async (req, res) => {
-    try {
-        const { error } = validateForUpdate(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+    const { error } = validateForUpdate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-        let pilgrim = await Pilgrim.findById(req.params.id);
-        if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
+    let pilgrim = await Pilgrim.findById(req.params.id);
+    if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
 
-        if (pilgrim.enrollmentDetails.enrollmentZone.toString() !== req.userLga.toString())
-            return res.status(400).send('You cannot edit this pilgrim');
+    if (pilgrim.enrollmentDetails.enrollmentZone.toString() !== req.userLga.toString())
+        return res.status(400).send('You cannot edit this pilgrim');
 
-        // let updatedPaymentHistory = [];
-        // if (req.body.paymentHistory) {
-        //     updatedPaymentHistory =  [...pilgrim.paymentHistory, ...req.body.paymentHistory];
-        //     pilgrim.paymentHistory = updatedPaymentHistory;
-        // }
-
-        // let updatedEnrollmentDetails = {};
-        // if (req.body.enrollmentDetails) {
-        //     updatedEnrollmentDetails = { ...req.body.enrollmentDetails };
-        //     pilgrim.enrollmentDetails = updatedEnrollmentDetails;
-        // }
-
-        // let updatedPersonalDetails = {};
-        // if (req.body.personalDetails) {
-        //     updatedPersonalDetails = { ...req.body.personalDetails };
-        //     pilgrim.personalDetails = updatedPersonalDetails;
-        // }
-
-        // let updatedOfficeDetails = { ...req.body.officeDetails };
-        // pilgrim.officeDetails = updatedOfficeDetails;
-
-        // let updatedNextOfKinDetails = { ...req.body.nextOfKinDetails };
-        // pilgrim.nextOfKinDetails = updatedNextOfKinDetails;
-
-        // let updatedPassportDetails = { ...req.body.passportDetails };
-        // pilgrim.passportDetails = updatedPassportDetails;
-
-        // let updatedAttachedDocuments = { ...req.body.attachedDocuments };
-        // pilgrim.attachedDocuments = updatedAttachedDocuments;
-
-        // pilgrim = await pilgrim.save();
-
-
-        pilgrim = await Pilgrim.findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        }, { new: true, useFindAndModify: false });
-        if (!pilgrim) return res.status(404).send('Pilgrim with given ID not found.');
-        
-        res.send(pilgrim);
-    } catch (err) {
-        throw(err);
-    }
+    pilgrim = await Pilgrim.findByIdAndUpdate(req.params.id, {
+        $set: req.body
+    }, { new: true, useFindAndModify: false });
+    if (!pilgrim) return res.status(404).send('Pilgrim with given ID not found.');
+    
+    res.send(pilgrim);
 });
 
 
