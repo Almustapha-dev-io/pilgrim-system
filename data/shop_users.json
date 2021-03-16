@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "60478562db4f1336a0e2f9ac"
+  },
+  "name": "John Doe",
+  "email": "johndoe@gmail.com",
+  "cart": {
+    "items": []
+  },
+  "__v": 7
+}]

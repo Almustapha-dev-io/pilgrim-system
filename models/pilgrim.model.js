@@ -95,9 +95,7 @@ const pilgrimSchema = new mongoose.Schema({
             required: true
         },
         alternatePhone: {
-            type: String,
-            minlength: 11,
-            maxlength: 11
+            type: String
         },
     },
 
@@ -208,6 +206,10 @@ const pilgrimSchema = new mongoose.Schema({
         paymentDate: {
             type: Date,
             required: true
+        },
+        amount: {
+            type: Number,
+            required: true
         }
     }],
 
@@ -265,7 +267,7 @@ function validatePilgrim(pilgrim) {
             localGovOfOrigin: Joi.objectId().required(),
             dateOfBirth: Joi.date().required(),
             phone: Joi.string().min(11).max(11).required(),
-            alternatePhone: Joi.string().min(11).max(11)
+            alternatePhone: Joi.string().min(11).max(11).allow(null, '')
         }).required(),
 
  
@@ -298,6 +300,7 @@ function validatePilgrim(pilgrim) {
             tellerNumber: Joi.string().required(),
             receiptNumber: Joi.string().required(),
             paymentDate: Joi.date().required(),
+            amount: Joi.number().required()
         }).required()
         ).required(),
 
@@ -330,7 +333,7 @@ function validatePilgrimForUpdate(pilgrim) {
             localGovOfOrigin: Joi.objectId(),
             dateOfBirth: Joi.date(),
             phone: Joi.string().min(11).max(11),
-            alternatePhone: Joi.string().min(11).max(11)
+            alternatePhone: Joi.string().min(11).max(11).allow(null, '')
         }),
 
         officeDetails: Joi.object({
@@ -360,6 +363,7 @@ function validatePilgrimForUpdate(pilgrim) {
             tellerNumber: Joi.string(),
             receiptNumber: Joi.string(),
             paymentDate: Joi.date(),
+            amount: Joi.number(),
         })),
 
         attachedDocuments: Joi.object({

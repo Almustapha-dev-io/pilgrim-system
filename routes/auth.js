@@ -24,7 +24,6 @@ router.post('/', async (req, res) => {
     
     const token = user.generateAuthToken();
 
-    logger.info(`${user.name}  : ${user.email} Logged in with token: ${token}`);
     res.send({ token, user, activeYear });
 });
 
