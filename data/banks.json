@@ -2,115 +2,150 @@
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d03"
   },
-  "name": "Access Bank"
+  "name": "Access Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d04"
   },
-  "name": "Citibank"
+  "name": "Citibank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d05"
   },
-  "name": "Diamond Bank"
+  "name": "Diamond Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d06"
   },
-  "name": "Dynamic Standard Bank"
+  "name": "Dynamic Standard Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d07"
   },
-  "name": "Ecobank Nigeria"
+  "name": "Ecobank Nigeria",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d08"
   },
-  "name": "Fidelity Bank Nigeria"
+  "name": "Fidelity Bank Nigeria",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d09"
   },
-  "name": "First Bank of Nigeria"
+  "name": "First Bank of Nigeria",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d0a"
   },
-  "name": "First City Monument Bank"
+  "name": "First City Monument Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d0b"
   },
-  "name": "Guaranty Trust Bank"
+  "name": "Guaranty Trust Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d0c"
   },
-  "name": "Heritage Bank Plc"
+  "name": "Heritage Bank Plc",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d0d"
   },
-  "name": "Jaiz Bank"
+  "name": "Jaiz Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d0e"
   },
-  "name": "Keystone Bank Limited"
+  "name": "Keystone Bank Limited",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d0f"
   },
-  "name": "Providus Bank Plc"
+  "name": "Providus Bank Plc",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d10"
   },
-  "name": "Polaris Bank"
+  "name": "Polaris Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d11"
   },
-  "name": "Stanbic IBTC Bank Nigeria Limited"
+  "name": "Stanbic IBTC Bank Nigeria Limited",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d12"
   },
-  "name": "Standard Chartered Bank"
+  "name": "Standard Chartered Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d13"
   },
-  "name": "Sterling Bank"
+  "name": "Sterling Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d14"
   },
-  "name": "Suntrust Bank Nigeria Limited"
+  "name": "Suntrust Bank Nigeria Limited",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d15"
   },
-  "name": "Union Bank of Nigeria"
+  "name": "Union Bank of Nigeria",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d16"
   },
-  "name": "United Bank for Africa"
+  "name": "United Bank for Africa",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d17"
   },
-  "name": "Unity Bank Plc"
+  "name": "Unity Bank Plc",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d18"
   },
-  "name": "Wema Bank"
+  "name": "Wema Bank",
+  "active": true
 },{
   "_id": {
     "$oid": "6030fa3e47db0f3e3c076d19"
   },
-  "name": "Zenith Bank"
+  "name": "Zenith Bank",
+  "active": true
+},{
+  "_id": {
+    "$oid": "607d91015ba51e1d70783fad"
+  },
+  "name": "My Bank",
+  "active": false
+},{
+  "_id": {
+    "$oid": "608f0a9baaf0f7412897100b"
+  },
+  "active": false,
+  "name": "TEst Bank"
 }]

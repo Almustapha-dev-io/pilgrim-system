@@ -6,25 +6,28 @@ const express = require('express');
 const { Year } = require('../models/years.model');
 const router = express.Router();
 
-const { appLogger: logger } = require('../startup/logging');
-
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).populate('role', '_id name');
+    const user = await User
+        .findOne({ email })
+        .populate('role', '_id name');
     if (!user) return res.status(400).send('Invalid email or password.');
     
     const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) return res.status(400).send('Invalid email or password');
 
-    const activeYear = await Year.findOne({ active: true });
+    if (!validPassword) return res.status(400).send('Invalid email or password');
     
     const token = user.generateAuthToken();
 
-    res.send({ token, user, activeYear });
+    user.password = undefined;
+    user.__v = undefined;
+    user.dateCreated = undefined;
+
+    res.send({ token, user });
 });
 
 function validate(user) {

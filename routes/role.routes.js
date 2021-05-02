@@ -17,18 +17,13 @@ router.get('/', [auth, superAdmin], async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    try {
-        const { error } = validate(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
-  
-        let role = new Role(req.body);
-        role = await role.save();
-        
-        res.send(role);
-    } catch (err) {
-        throw(err);
-    }
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
+    let role = new Role(req.body);
+    role = await role.save();
+    
+    res.send(role);
 });
 
 router.get('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {

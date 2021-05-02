@@ -36,7 +36,6 @@ router.post('/', [auth, superAdmin], async (req, res) => {
     localGov = new LocalGovernment({ name, code });
 
     await localGov.save();
-
     res.send(localGov);
 });
 

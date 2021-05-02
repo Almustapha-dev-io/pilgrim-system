@@ -6,8 +6,8 @@ const pilgrimSchema = new mongoose.Schema({
     enrollmentDetails: {
         code: {
             type: String,
-            required: true,
-            unique: true,
+            // required: true,
+            // unique: true,
             minlength: 12,
             uppercase: true
         },
@@ -22,7 +22,8 @@ const pilgrimSchema = new mongoose.Schema({
             type: String,
             required: true,
             minlength: 4,
-            maxlength: 4  
+            maxlength: 4,
+            default: '0000'
         },
         enrollmentZone: {
             type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +34,10 @@ const pilgrimSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'Year'
+        },
+        enrollmentAllocationNumber: {
+            type: Number,
+            // required: true
         }
     },
 
@@ -253,7 +258,9 @@ function validatePilgrim(pilgrim) {
         enrollmentDetails: Joi.object({
             hajjExperience: Joi.string().min(4).max(50).required(),
             lastHajjYear: Joi.string().min(4).max(4).required(),
-            enrollmentZone: Joi.objectId().required()
+            enrollmentZone: Joi.objectId().required(),
+            enrollmentAllocationNumber: Joi.number().greater(0).required(),
+            enrollmentYear: Joi.number().integer().required()
         }).required(),
 
  
@@ -301,8 +308,10 @@ function validatePilgrim(pilgrim) {
             receiptNumber: Joi.string().required(),
             paymentDate: Joi.date().required(),
             amount: Joi.number().required()
-        }).required()
-        ).required(),
+        }))
+        .unique((a, b) => a.tellerNumber === b.tellerNumber)
+        .unique((a, b) => a.receiptNumber === b.receiptNumber)
+        .required(),
 
  
         attachedDocuments: Joi.object({
@@ -320,7 +329,9 @@ function validatePilgrimForUpdate(pilgrim) {
         enrollmentDetails: Joi.object({
             hajjExperience: Joi.string().min(4).max(50),
             lastHajjYear: Joi.string().min(4).max(4),
-            enrollmentZone: Joi.objectId()
+            enrollmentZone: Joi.objectId(),
+            enrollmentAllocationNumber: Joi.number().greater(0),
+            enrollmentYear: Joi.number().integer()
         }),
 
         personalDetails: Joi.object({
@@ -359,12 +370,14 @@ function validatePilgrimForUpdate(pilgrim) {
         }),
 
         paymentHistory: Joi.array().items(Joi.object({
-            bank: Joi.objectId(),
-            tellerNumber: Joi.string(),
-            receiptNumber: Joi.string(),
-            paymentDate: Joi.date(),
-            amount: Joi.number(),
-        })),
+            bank: Joi.objectId().required(),
+            tellerNumber: Joi.string().required(),
+            receiptNumber: Joi.string().required(),
+            paymentDate: Joi.date().required(),
+            amount: Joi.number().required(),
+        }))
+        .unique((a, b) => a.tellerNumber === b.tellerNumber)
+        .unique((a, b) => a.receiptNumber === b.receiptNumber),
 
         attachedDocuments: Joi.object({
             guarantorFormUrl: Joi.string(),

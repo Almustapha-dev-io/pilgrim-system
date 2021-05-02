@@ -12,9 +12,12 @@ const pilgrims = require('../routes/pilgrim.routes');
 const roles = require('../routes/role.routes');
 const states = require('../routes/states.routes');
 const years = require('../routes/year.routes');
+const analytics = require('../routes/analytics.routes');
+const seats = require('../routes/seat.routes');
 
 module.exports = function(app) {
     app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(cors());
     
@@ -27,6 +30,8 @@ module.exports = function(app) {
     app.use('/api/roles', roles);
     app.use('/api/states', states);
     app.use('/api/years', years);
+    app.use('/api/analytics', analytics);
+    app.use('/api/seats', seats);
 
     app.use(error);
 };

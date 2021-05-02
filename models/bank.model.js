@@ -10,6 +10,10 @@ const bankSchema = new mongoose.Schema({
         trim: true,
         unique: true,
     },
+    active: {
+        type: Boolean,
+        default: true
+    },
     dateCreated: {
         type: Date,
         default: Date.now
@@ -26,6 +30,16 @@ function validateBank (bank) {
     return Joi.validate(bank, schema);
 }
 
+function validateBankForUpdate (bank) {
+    const schema = {
+        name: Joi.string().min(5).max(255),
+        active: Joi.boolean()
+    }
+
+    return Joi.validate(bank, schema);
+}
+
 exports.Bank = Bank;
 exports.validate = validateBank;
+exports.validateForUpdate = validateBankForUpdate;
 exports.bankSchema = bankSchema;

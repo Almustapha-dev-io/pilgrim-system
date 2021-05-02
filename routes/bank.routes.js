@@ -9,7 +9,15 @@ const validateObjectId = require('../middleware/validateObjectId');
 const { Bank, validate } = require('../models/bank.model');
 
 router.get('/', auth, async (req, res) => {
-    const banks = await Bank.find()
+    const banks = await Bank.find({ active: true })
+        .sort('name')
+        .select('_id name');
+    
+    res.send(banks);
+});
+
+router.get('/inactive', auth, async (req, res) => {
+    const banks = await Bank.find({ active: false })
         .sort('name')
         .select('_id name');
     
@@ -40,7 +48,7 @@ router.post('/', [auth, superAdmin], async (req, res) => {
 });
 
 router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
-    const { error } = validate(req.body);
+    const { error } = validateForUpdate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const bank = await Bank.findByIdAndUpdate(req.params.id, {
@@ -48,6 +56,24 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     }, { new: true, useFindAndModify: false });
     if (!bank) return res.status(404).send('Bank with given ID not found.');
 
+    res.send(bank);
+});
+
+router.put('/activate/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+    const bank = await Bank.findById(req.params.id);
+    if (!bank) return res.status(404).send('Bank with given ID not found.');
+
+    bank.active = true;
+    await bank.save();
+    res.send(bank);
+});
+
+router.put('/deactivate/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+    const bank = await Bank.findById(req.params.id);
+    if (!bank) return res.status(404).send('Bank with given ID not found.');
+
+    bank.active = false;
+    await bank.save();
     res.send(bank);
 });
 

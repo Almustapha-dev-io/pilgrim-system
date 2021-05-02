@@ -34,7 +34,7 @@ router.get('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     res.send(lga);
 });
 
-router.post('/', [auth, superAdmin], async (req, res) => {
+router.post('/', [auth], async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
@@ -46,7 +46,7 @@ router.post('/', [auth, superAdmin], async (req, res) => {
     let lga = await Lga.findOne({ name, state: stateId });
     if (lga) return res.status(400).send(`${name} local government already exists.`);
 
-    lga = new Lga({ name, stateId });
+    lga = new Lga({ name, state: stateId });
 
     await lga.save();
 

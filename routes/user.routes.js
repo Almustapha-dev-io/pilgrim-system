@@ -12,22 +12,36 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', [auth, superAdmin],  async (req, res) => {
+    const pageSize = +req.query.pageSize || 5;
+    const page = +req.query.page || 1;
+
+    const totalDocs = await User.countDocuments();
+
     const users = await User.find()
+        .skip((page-1) * pageSize)
+        .limit(pageSize)
         .populate('localGovernment', 'name')
         .populate('role', '_id name')
         .sort('-localGovernment.name')
         .select('_id name code');
     
-    res.send(users);
+    res.send({ users, totalDocs });
 });
 
 router.get('/by-role/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+    const pageSize = +req.query.pageSize || 5;
+    const page = +req.query.page || 1;
+
+    const totalDocs = await User.countDocuments({ role: req.params.id });
+
     const users = await User.find({ role: req.params.id })
+        .skip((page-1) * pageSize)
+        .limit(pageSize)
         .sort('name')
         .select('-password -__v')
         .populate('localGovernment', '_id name');
 
-    res.send(users);
+    res.send({ users, totalDocs });
 });
 
 router.post('/', [auth, superAdmin], async (req, res) => {
@@ -91,8 +105,9 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     if (email) {
         user = await User.findOne({ email });
         if (user) {
-            if (user._id.toString() !== req.params.id) 
+            if (user._id.toString() !== req.params.id) {
                 return res.status(400).send('User with given email already exists.');
+            }
         }
     }
 
