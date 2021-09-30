@@ -42,7 +42,7 @@ const pilgrimSchema = new mongoose.Schema({
     },
 
     personalDetails: {
-        surname: {
+        surname: { 
             type: String,
             required: true,
             minlength: 2,
@@ -239,6 +239,10 @@ const pilgrimSchema = new mongoose.Schema({
         type: Boolean,
         default: false    
     },
+    deletionReason: {
+        type: String,
+        default: ''
+    },
     dateCreated: {
         type: Date,
         default: Date.now
@@ -385,7 +389,8 @@ function validatePilgrimForUpdate(pilgrim) {
             mouUrl: Joi.string()
         }),
         
-        deleted: Joi.boolean()
+        deleted: Joi.boolean(),
+        deletionReason: Joi.string()
     }
 
     return Joi.validate(pilgrim, schema);

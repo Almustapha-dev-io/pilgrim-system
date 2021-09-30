@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 
-const { initiator, reviewer, initiator_admin } = require('../middleware/role');
+const { initiator, reviewer, initiator_admin, initiator_reviewer, admin_reviewer } = require('../middleware/role');
 const admin = require('../middleware/admin');
 const auth = require('../middleware/auth');
 const validateObjectId = require('../middleware/validateObjectId');
@@ -154,6 +154,7 @@ router.put('/add-payments/:id', [auth,/*  initiator, */ validateObjectId], async
     res.send(pilgrim);
 });
 
+
 // create pilgrim initiator
 router.post('/', [auth, initiator], async (req, res) => {
     const { error } = validate(req.body);
@@ -162,7 +163,7 @@ router.post('/', [auth, initiator], async (req, res) => {
     const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails, 
             passportDetails, paymentHistory, attachedDocuments } = req.body;
             
-    const  userLga = req.userLga;
+    const userLga = req.userLga;
 
     const year = await Year.findOne({ 
         active: true,
@@ -298,10 +299,6 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
     const localGov = await LocalGovernment.findById(pilgrim.enrollmentDetails.enrollmentZone);
     if (!localGov) return res.status(400).send('Invalid enrollment local gov\'t.');
 
-    if (localGov._id.toString() !== userLga.toString()) {
-        return res.status(400).send('Sorry, you cannot register pilgrims to the selected zone');
-    }
-
     const lgaYearAllocationDetails = year.seatAllocations.find(lg => lg.zone.toString() === localGov._id.toString());
     if (!lgaYearAllocationDetails) {
         return res.status(400).send('Seats not allocated to specified Center.');
@@ -364,15 +361,12 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
 });
 
 //  update pilgrim admin (lga === pilgrim.lga)
-router.put('/:id', [auth, admin, validateObjectId], async (req, res) => {
+router.put('/:id', [auth, initiator_reviewer, validateObjectId], async (req, res) => {
     const { error } = validateForUpdate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     let pilgrim = await Pilgrim.findById(req.params.id);
     if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
-
-    if (pilgrim.enrollmentDetails.enrollmentZone.toString() !== req.userLga.toString())
-        return res.status(400).send('You cannot edit this pilgrim');
 
     pilgrim = await Pilgrim.findByIdAndUpdate(req.params.id, {
         $set: req.body
@@ -382,12 +376,13 @@ router.put('/:id', [auth, admin, validateObjectId], async (req, res) => {
     res.send(pilgrim);
 });
 
-router.delete('/:id', [auth, admin, validateObjectId], async (req, res) => {
+router.delete('/:id', [auth, admin_reviewer, validateObjectId], async (req, res) => {
     let pilgrim = await Pilgrim.findById(req.params.id);
     if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
 
-    if (pilgrim.enrollmentDetails.enrollmentZone.toString() !== req.userLga.toString())
-        return res.status(400).send('You cannot delete this pilgrim');
+    const { deletionReason } = req.query;
+    console.log(req.query);
+    if (!deletionReason) return res.status(400).send('Please provide a reason for deletion.');
 
     const session = await mongoose.startSession();
     await session.withTransaction(() => {
@@ -399,6 +394,7 @@ router.delete('/:id', [auth, admin, validateObjectId], async (req, res) => {
             }),
             Pilgrim.findByIdAndUpdate(pilgrim._id, { $set: {
                 deleted: true,
+                deletionReason,
                 'enrollmentDetails.code': undefined,
                 'enrollmentDetails.enrollmentAllocationNumber': undefined
             }}, { new: true, useFindAndModify: false })
@@ -566,11 +562,11 @@ router.get('/reviewer/deleted-by-year-and-lga/:lga/:id', [auth, reviewer, valida
         .sort('enrollmentDetails.enrollmentZone.code')
         .skip((page-1) * pageSize)
         .limit(pageSize)
-        .populate('enrollmentDetails.enrollmentZone', '-_id name code')
-        .populate('personalDetails.stateOfOrigin', '-_id name')
-        .populate('personalDetails.localGovOfOrigin', '-_id name')
+        .populate('enrollmentDetails.enrollmentZone', '_id name code')
+        .populate('personalDetails.stateOfOrigin', '_id name')
+        .populate('personalDetails.localGovOfOrigin', '_id name')
         .populate('createdBy', '-_id name')
-        .populate('enrollmentDetails.enrollmentYear', '-_id year');
+        .populate('enrollmentDetails.enrollmentYear', '_id year');
 
     res.send({ pilgrims, totalDocs });
 });
@@ -598,7 +594,6 @@ router.get('/image/:name', (req, res) => {
     const file = fs.createReadStream(path.join(imagePath, req.params.name));
     res.setHeader('Content-type', contentType);
     file.pipe(res);
-    // return res.sendFile(path.join(imagePath, req.params.name));
 });
 
 module.exports = router;
