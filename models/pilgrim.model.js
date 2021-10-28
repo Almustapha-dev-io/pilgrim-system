@@ -239,10 +239,9 @@ const pilgrimSchema = new mongoose.Schema({
         type: Boolean,
         default: false    
     },
-    deletionReason: {
-        type: String,
-        default: ''
-    },
+    deletionReason: String,
+    fundRefunded: String,
+    amountRefunded: Number,
     dateCreated: {
         type: Date,
         default: Date.now
@@ -390,7 +389,9 @@ function validatePilgrimForUpdate(pilgrim) {
         }),
         
         deleted: Joi.boolean(),
-        deletionReason: Joi.string()
+        deletionReason: Joi.string(),
+        fundRefunded: Joi.string(),
+        amountRefunded: Joi.number()
     }
 
     return Joi.validate(pilgrim, schema);

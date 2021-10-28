@@ -3,7 +3,7 @@ const _ = require('lodash');
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-
+const util = require('util');
 const { initiator, reviewer, initiator_admin, initiator_reviewer, admin_reviewer } = require('../middleware/role');
 const admin = require('../middleware/admin');
 const auth = require('../middleware/auth');
@@ -33,7 +33,7 @@ router.get('/by-id/:id', [auth, initiator_admin, validateObjectId], async (req, 
         .populate('personalDetails.localGovOfOrigin', '_id name')
         .populate('createdBy', '_id name')
         .sort('-dateCreated enrollmentDetails.enrollmentZone.name enrollmentDetails.code');
-            
+
     if (!pilgrim) return res.status(404).send('Pilgrim with the given id has not been registered in your zone.');
 
     return res.send(pilgrim);
@@ -58,7 +58,7 @@ router.get('/by-code/:code', [auth, initiator_admin, validateObjectId], async (r
 //  get deleted pilgrims by lga and year
 router.get('/deleted-by-year/:id', [auth, admin, validateObjectId], async (req, res) => {
     const yearId = req.params.id;
-    
+
     const year = await Year.findById(yearId);
     if (!year) return res.status(400).send('Invalixd year.');
 
@@ -66,8 +66,8 @@ router.get('/deleted-by-year/:id', [auth, admin, validateObjectId], async (req, 
     const page = +req.query.page || 1;
 
     const totalDocs = await Pilgrim.countDocuments({
-        deleted: true, 
-        'enrollmentDetails.enrollmentZone': req.userLga, 
+        deleted: true,
+        'enrollmentDetails.enrollmentZone': req.userLga,
         'enrollmentDetails.enrollmentYear': year._id
     });
 
@@ -95,8 +95,8 @@ router.get('/by-year/:id', [auth, initiator_admin, validateObjectId], async (req
     const page = +req.query.page || 1;
 
     const totalDocs = await Pilgrim.countDocuments({
-        deleted: false, 
-        'enrollmentDetails.enrollmentZone': req.userLga, 
+        deleted: false,
+        'enrollmentDetails.enrollmentZone': req.userLga,
         'enrollmentDetails.enrollmentYear': req.params.id
     });
 
@@ -106,10 +106,10 @@ router.get('/by-year/:id', [auth, initiator_admin, validateObjectId], async (req
     if (!year) return res.status(400).send('Invalid year');
 
     const pilgrims = await Pilgrim
-        .find({ 
-            deleted: false, 
-            'enrollmentDetails.enrollmentZone': req.userLga, 
-            'enrollmentDetails.enrollmentYear': year._id 
+        .find({
+            deleted: false,
+            'enrollmentDetails.enrollmentZone': req.userLga,
+            'enrollmentDetails.enrollmentYear': year._id
         })
         .sort('enrollmentDetails.enrollmentZone.code')
         .skip((page - 1) * pageSize)
@@ -135,7 +135,7 @@ router.put('/add-payments/:id', [auth,/*  initiator, */ validateObjectId], async
     if (!paymentHistory) {
         return res.status(400).send('Provide atleast one transaction.');
     }
-    
+
     if (paymentHistory.length < 1) {
         return res.status(400).send('Provide atleast one transaction.');
     }
@@ -160,12 +160,12 @@ router.post('/', [auth, initiator], async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails, 
-            passportDetails, paymentHistory, attachedDocuments } = req.body;
-            
+    const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails,
+        passportDetails, paymentHistory, attachedDocuments } = req.body;
+
     const userLga = req.userLga;
 
-    const year = await Year.findOne({ 
+    const year = await Year.findOne({
         active: true,
         year: enrollmentDetails.enrollmentYear
     });
@@ -208,7 +208,7 @@ router.post('/', [auth, initiator], async (req, res) => {
 
     const lgaOfOrigin = await Lga.findById(personalDetails.localGovOfOrigin);
     if (!lgaOfOrigin) return res.status(400).send('Invalid local gov\'t of origin.');
-    
+
     if (lgaOfOrigin.name.trim() === '00') {
         return res.status(400).send('Cannot assign pilgrim to this lga.');
     }
@@ -216,12 +216,12 @@ router.post('/', [auth, initiator], async (req, res) => {
     let zeros = '';
     if (enrollmentDetails.enrollmentAllocationNumber < 10) {
         zeros = '000'
-    } else if (enrollmentDetails.enrollmentAllocationNumber >= 10 && enrollmentDetails.enrollmentAllocationNumber < 100)  {
+    } else if (enrollmentDetails.enrollmentAllocationNumber >= 10 && enrollmentDetails.enrollmentAllocationNumber < 100) {
         zeros = '00'
     } else if (enrollmentDetails.enrollmentAllocationNumber >= 100 && enrollmentDetails.enrollmentAllocationNumber < 1000) {
         zeros = '0'
     }
-    
+
     const pilgrimNumber = `KD${zeros + enrollmentDetails.enrollmentAllocationNumber}${localGov.code}-${year.year}`.toUpperCase();
 
     let pilgrim = await Pilgrim.findOne({ 'enrollmentDetails.code': pilgrimNumber });
@@ -231,16 +231,16 @@ router.post('/', [auth, initiator], async (req, res) => {
 
     const body = {
         enrollmentDetails: {
-            ...enrollmentDetails,  
-            code: pilgrimNumber, 
+            ...enrollmentDetails,
+            code: pilgrimNumber,
             enrollmentYear: year._id
         },
-        personalDetails: {...personalDetails},
-        officeDetails: {...officeDetails},
-        nextOfKinDetails: {...nextOfKinDetails},
-        passportDetails: {...passportDetails},
+        personalDetails: { ...personalDetails },
+        officeDetails: { ...officeDetails },
+        nextOfKinDetails: { ...nextOfKinDetails },
+        passportDetails: { ...passportDetails },
         paymentHistory: [...paymentHistory],
-        attachedDocuments: {...attachedDocuments},
+        attachedDocuments: { ...attachedDocuments },
         createdBy: req.user._id
     };
 
@@ -261,14 +261,10 @@ router.post('/', [auth, initiator], async (req, res) => {
         return Promise.all(reqs);
     });
 
-    res.send({pilgrim, seat});
+    res.send({ pilgrim, seat });
 });
 
-/* 
-*   Reassign Seat to deleted pilgrim
-*   @Params: pilgrim ID
-*   @Body: enrollmentDetails: { enrollmentAllocationNumber j}
-*/
+
 router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
     const { error } = validateForUpdate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -286,7 +282,7 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
 
     const newNumber = req.body.enrollmentDetails.enrollmentAllocationNumber;
 
-    const year = await Year.findOne({ 
+    const year = await Year.findOne({
         active: true,
         _id: pilgrim.enrollmentDetails.enrollmentYear
     });
@@ -294,7 +290,7 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
         return res.status(400).send(`Hajj registration not opened yet.`);
     }
 
-    const  userLga = req.userLga;
+    const userLga = req.userLga;
 
     const localGov = await LocalGovernment.findById(pilgrim.enrollmentDetails.enrollmentZone);
     if (!localGov) return res.status(400).send('Invalid enrollment local gov\'t.');
@@ -325,7 +321,7 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
     let zeros = '';
     if (newNumber < 10) {
         zeros = '000'
-    } else if (newNumber >= 10 && newNumber < 100)  {
+    } else if (newNumber >= 10 && newNumber < 100) {
         zeros = '00'
     } else if (newNumber >= 100 && newNumber < 1000) {
         zeros = '0'
@@ -348,7 +344,7 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
             zone: pilgrim.enrollmentDetails.enrollmentZone,
             year: pilgrim.enrollmentDetails.enrollmentYear
         });
-        
+
         const reqs = [
             pilgrim.save({ session }),
             seat.save({ session })
@@ -357,7 +353,7 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
         return Promise.all(reqs);
     });
 
-    res.send({pilgrim, seat});
+    res.send({ pilgrim, seat });
 });
 
 //  update pilgrim admin (lga === pilgrim.lga)
@@ -372,7 +368,7 @@ router.put('/:id', [auth, initiator_reviewer, validateObjectId], async (req, res
         $set: req.body
     }, { new: true, useFindAndModify: false });
     if (!pilgrim) return res.status(404).send('Pilgrim with given ID not found.');
-    
+
     res.send(pilgrim);
 });
 
@@ -380,10 +376,17 @@ router.delete('/:id', [auth, admin_reviewer, validateObjectId], async (req, res)
     let pilgrim = await Pilgrim.findById(req.params.id);
     if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
 
-    const { deletionReason } = req.query;
-    console.log(req.query);
+    const { deletionReason, fundRefunded, amountRefunded } = req.query;
     if (!deletionReason) return res.status(400).send('Please provide a reason for deletion.');
 
+    if (!fundRefunded) {
+        return res.status(400).send('Invalid fund refund details sent.');
+    }
+
+    if (!amountRefunded || Number.isNaN(Number(amountRefunded)) || Number(amountRefunded) < 0) {
+        return res.status(400).send('Send a valid refund amount.');
+    }
+    
     const session = await mongoose.startSession();
     await session.withTransaction(() => {
         const reqs = [
@@ -402,7 +405,7 @@ router.delete('/:id', [auth, admin_reviewer, validateObjectId], async (req, res)
 
         return Promise.all(reqs);
     });
-    
+
     res.send(pilgrim);
 });
 
@@ -411,9 +414,9 @@ router.get('/reviewer/by-lga/:id', [auth, reviewer, validateObjectId], async (re
     const pageSize = +req.query.pageSize || 5;
     const page = +req.query.page || 1;
 
-    const totalDocs = await Pilgrim.countDocuments({ 
-        deleted: false, 
-        'enrollmentDetails.enrollmentZone': req.params.id 
+    const totalDocs = await Pilgrim.countDocuments({
+        deleted: false,
+        'enrollmentDetails.enrollmentZone': req.params.id
     });
 
     const { id: lgaId } = req.params;
@@ -437,9 +440,9 @@ router.get('/reviewer/by-code-and-lga/:code/:id', [auth, reviewer, validateObjec
     const { code: pilgrimCode, id: lgaId } = req.params;
 
     const pilgrim = await Pilgrim
-        .findOne({ 
-            'enrollmentDetails.code': pilgrimCode, 
-            'enrollmentDetails.enrollmentZone': lgaId 
+        .findOne({
+            'enrollmentDetails.code': pilgrimCode,
+            'enrollmentDetails.enrollmentZone': lgaId
         })
         .populate('enrollmentDetails.enrollmentZone', '_id name code')
         .populate('personalDetails.stateOfOrigin', '_id name')
@@ -459,14 +462,14 @@ router.get('/reviewer', [auth, reviewer], async (req, res) => {
     const pilgrims = await Pilgrim
         .find({ deleted: false })
         .sort('-dateCreated enrollmentDetails.enrollmentZone.name enrollmentDetails.code')
-        .skip((page-1) * pageSize)
+        .skip((page - 1) * pageSize)
         .limit(pageSize)
         .populate('enrollmentDetails.enrollmentZone', '_id name code')
         .populate('personalDetails.stateOfOrigin', '_id name')
         .populate('personalDetails.localGovOfOrigin', '_id name')
         .populate('createdBy', '_id name');
 
-    res.send({ pilgrims, totalDocs });   
+    res.send({ pilgrims, totalDocs });
 });
 
 
@@ -479,7 +482,7 @@ router.get('/reviewer/deleted', [auth, reviewer], async (req, res) => {
     const pilgrims = await Pilgrim
         .find({ deleted: true })
         .sort('-year -dateCreated enrollmentDetails.enrollmentZone.name enrollmentDetails.code')
-        .skip((page-1) * pageSize)
+        .skip((page - 1) * pageSize)
         .limit(pageSize)
         .populate('enrollmentDetails.enrollmentZone', '_id name code')
         .populate('personalDetails.stateOfOrigin', '_id name')
@@ -507,24 +510,24 @@ router.get('/reviewer/by-year-and-lga/:lga/:id', [auth, reviewer, validateObject
 
     const pageSize = +req.query.pageSize || 5;
     const page = req.query.page || 1;
-    const totalDocs = await Pilgrim.countDocuments({ 
-        deleted: false, 
+    const totalDocs = await Pilgrim.countDocuments({
+        deleted: false,
         'enrollmentDetails.enrollmentYear': year,
         'enrollmentDetails.enrollmentZone': localGov._id
     });
 
     const pilgrims = await Pilgrim
-        .find({ 
-            deleted: false, 
+        .find({
+            deleted: false,
             'enrollmentDetails.enrollmentYear': year,
             'enrollmentDetails.enrollmentZone': localGov._id
         })
         .sort('enrollmentDetails.enrollmentZone.code')
-        .skip((page-1) * pageSize)
+        .skip((page - 1) * pageSize)
         .limit(pageSize)
-        .populate('enrollmentDetails.enrollmentZone', '-_id name code')
-        .populate('personalDetails.stateOfOrigin', '-_id name')
-        .populate('personalDetails.localGovOfOrigin', '-_id name')
+        .populate('enrollmentDetails.enrollmentZone', '_id name code')
+        .populate('personalDetails.stateOfOrigin', '_id name')
+        .populate('personalDetails.localGovOfOrigin', '_id name')
         .populate('createdBy', '-_id name')
         .populate('enrollmentDetails.enrollmentYear', '-_id year');
 
@@ -547,20 +550,20 @@ router.get('/reviewer/deleted-by-year-and-lga/:lga/:id', [auth, reviewer, valida
 
     const pageSize = +req.query.pageSize || 5;
     const page = req.query.page || 1;
-    const totalDocs = await Pilgrim.countDocuments({ 
-        deleted: true, 
+    const totalDocs = await Pilgrim.countDocuments({
+        deleted: true,
         'enrollmentDetails.enrollmentYear': year,
         'enrollmentDetails.enrollmentZone': localGov._id
     });
 
     const pilgrims = await Pilgrim
-        .find({ 
-            deleted: true, 
+        .find({
+            deleted: true,
             'enrollmentDetails.enrollmentYear': year,
             'enrollmentDetails.enrollmentZone': localGov._id
         })
         .sort('enrollmentDetails.enrollmentZone.code')
-        .skip((page-1) * pageSize)
+        .skip((page - 1) * pageSize)
         .limit(pageSize)
         .populate('enrollmentDetails.enrollmentZone', '_id name code')
         .populate('personalDetails.stateOfOrigin', '_id name')
@@ -573,7 +576,7 @@ router.get('/reviewer/deleted-by-year-and-lga/:lga/:id', [auth, reviewer, valida
 
 // Post Image
 router.post('/image', [auth, upload.array('files', 3)], (req, res) => {
-    const files = req.files;    
+    const files = req.files;
     if ((!files) || files.length < 1) {
         return res.status(400).send('Please upload a file');
     }
@@ -582,7 +585,7 @@ router.post('/image', [auth, upload.array('files', 3)], (req, res) => {
 });
 
 // Fetch image
-router.get('/image/:name', (req, res) => {
+router.get('/image/:name', async (req, res) => {
     const fileExtension = req.params.name.split('.')[1].toLowerCase();
     const jpgFiles = ['jpg', 'jpeg'];
     let contentType = 'image/png';
@@ -590,10 +593,15 @@ router.get('/image/:name', (req, res) => {
     if (jpgFiles.includes(fileExtension)) {
         contentType = 'image/jpeg';
     }
+    fs.access(path.join(imagePath, req.params.name), fs.F_OK, e => {
+        if (e) res.status(404).send('File not found!');
 
-    const file = fs.createReadStream(path.join(imagePath, req.params.name));
-    res.setHeader('Content-type', contentType);
-    file.pipe(res);
+        else {
+            const file = fs.createReadStream(path.join(imagePath, req.params.name));
+            res.setHeader('Content-type', contentType);
+            file.pipe(res);
+        }
+    });
 });
 
 module.exports = router;
