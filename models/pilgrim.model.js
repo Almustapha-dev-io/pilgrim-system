@@ -67,7 +67,6 @@ const pilgrimSchema = new mongoose.Schema({
         maritalStatus: {
             type: String,
             default: 'single',
-            minlength: 6,
             maxlength: 12,
             enum: ['single', 'married', 'divorced', 'widow', 'widower'],
             lowercase: true
@@ -165,6 +164,32 @@ const pilgrimSchema = new mongoose.Schema({
         }
     },
 
+    mahrimDetails: {
+        fullName: {
+            type: String,
+            minlength: 5,
+            maxlength: 50,
+            lowercase: true
+        },
+        relationship: {
+            type: String,
+            enum: ['mother', 'father', 'sibling', 'grand parent', 'uncle', 
+            'aunt', 'cousin', 'niece', 'nephew', 'child', 'spouse'],
+            lowercase: true
+        },
+        address: {
+            type: String,
+            lowercase: true,
+            minlength: 5,
+            maxlength: 50
+        },
+        phone: {
+            type: String,
+            minlength: 11,
+            maxlength: 11,
+        }
+    },
+
     passportDetails: {
         passportType: {
             type: String,
@@ -233,7 +258,11 @@ const pilgrimSchema = new mongoose.Schema({
             type: String,
             required: true,
             unique: true
-        }
+        },
+        otherDocuments: [{
+            documentName: String,
+            docUrl: String
+        }]
     },
     deleted: {
         type: Boolean,
@@ -271,7 +300,7 @@ function validatePilgrim(pilgrim) {
             surname: Joi.string().min(2).max(24).required(),
             otherNames: Joi.string().min(2).max(150).required(),
             sex: Joi.string().min(4).max(6).required(),
-            maritalStatus: Joi.string().min(6).max(12).required(),
+            maritalStatus: Joi.string().max(12).required(),
             homeAddress: Joi.string().min(5).max(50).required(),
             stateOfOrigin: Joi.objectId().required(),
             localGovOfOrigin: Joi.objectId().required(),
@@ -295,6 +324,13 @@ function validatePilgrim(pilgrim) {
             phone: Joi.string().min(11).max(11).required(),
             relationship: Joi.string().required()
         }).required(),
+       
+        mahrimDetails: Joi.object({
+            fullName: Joi.string().min(5).max(50),
+            address: Joi.string().min(5).max(50),
+            phone: Joi.string().min(11).max(11),
+            relationship: Joi.string()
+        }).allow(null),
 
  
         passportDetails: Joi.object({
@@ -320,7 +356,11 @@ function validatePilgrim(pilgrim) {
         attachedDocuments: Joi.object({
             guarantorFormUrl: Joi.string().required(),
             passportUrl: Joi.string().required(),
-            mouUrl: Joi.string().required()
+            mouUrl: Joi.string().required(),
+            otherDocuments: Joi.array().items(Joi.object({
+                documentName: Joi.string(),
+                docUrl: Joi.string()
+            }))
         }).required()        
     }
 
@@ -341,7 +381,7 @@ function validatePilgrimForUpdate(pilgrim) {
             surname: Joi.string().min(2).max(24),
             otherNames: Joi.string().min(2).max(150),
             sex: Joi.string().min(4).max(6),
-            maritalStatus: Joi.string().min(6).max(12),
+            maritalStatus: Joi.string().max(12),
             homeAddress: Joi.string().min(5).max(50),
             stateOfOrigin: Joi.objectId(),
             localGovOfOrigin: Joi.objectId(),
@@ -363,6 +403,13 @@ function validatePilgrimForUpdate(pilgrim) {
             phone: Joi.string().min(11).max(11),
             relationship: Joi.string()
         }),
+        
+        mahrimDetails: Joi.object({
+            fullName: Joi.string().min(5).max(50),
+            address: Joi.string().min(5).max(50),
+            phone: Joi.string().min(11).max(11),
+            relationship: Joi.string()
+        }).allow(null),
 
         passportDetails: Joi.object({
             passportType: Joi.string(),
@@ -385,7 +432,11 @@ function validatePilgrimForUpdate(pilgrim) {
         attachedDocuments: Joi.object({
             guarantorFormUrl: Joi.string(),
             passportUrl: Joi.string(),
-            mouUrl: Joi.string()
+            mouUrl: Joi.string(),
+            otherDocuments: Joi.array().items(Joi.object({
+                documentName: Joi.string(),
+                docUrl: Joi.string()
+            }))
         }),
         
         deleted: Joi.boolean(),

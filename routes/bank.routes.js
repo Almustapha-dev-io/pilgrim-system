@@ -8,6 +8,52 @@ const validateObjectId = require('../middleware/validateObjectId');
 
 const { Bank, validate } = require('../models/bank.model');
 
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Bank:
+ *              type: object
+ *              required:
+ *                  - _id 
+ *                  - name
+ *              properties:
+ *                  _id:
+ *                      type: string
+ *                      description: Banks unique ID
+ *                  name:
+ *                      type: string
+ *                      description: Bank Name
+ *              examples:
+ *                  _id: 21218321fa
+ *                  name: Krama Bank
+ */
+
+/**
+ * @swagger
+ * tags:
+ *  name: Banks
+ *  description: API for bnaks
+ */
+
+
+/**
+ * @swagger
+ * /banks/:
+ *     get:
+ *        summary: Authenticates user
+ *        security:
+ *             - bearerAuth: []
+ *        tags: [Banks]
+ *        responses:
+ *             "200":
+ *                 description: Hello
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                               $ref: '#components/schemas/Bank'
+ */
+
 router.get('/', auth, async (req, res) => {
     const banks = await Bank.find({ active: true })
         .sort('name')

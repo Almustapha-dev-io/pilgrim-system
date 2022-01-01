@@ -14,6 +14,7 @@ const states = require('../routes/states.routes');
 const years = require('../routes/year.routes');
 const analytics = require('../routes/analytics.routes');
 const seats = require('../routes/seat.routes');
+const publicApi = require('../routes/public.routes');
 
 module.exports = function(app) {
     app.use(express.json());
@@ -32,6 +33,7 @@ module.exports = function(app) {
     app.use('/api/years', years);
     app.use('/api/analytics', analytics);
     app.use('/api/seats', seats);
+    app.use('/api/v1', publicApi);
 
     app.use(error);
 };

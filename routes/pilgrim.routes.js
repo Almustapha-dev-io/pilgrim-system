@@ -114,12 +114,11 @@ router.get('/by-year/:id', [auth, initiator_admin, validateObjectId], async (req
         .sort('enrollmentDetails.enrollmentZone.code')
         .skip((page - 1) * pageSize)
         .limit(pageSize)
-        .populate('enrollmentDetails.enrollmentZone', '-_id name code')
-        .populate('personalDetails.stateOfOrigin', '-_id name')
-        .populate('personalDetails.localGovOfOrigin', '-_id name')
+        .populate('enrollmentDetails.enrollmentZone', '_id name code')
+        .populate('personalDetails.stateOfOrigin', '_id name')
+        .populate('personalDetails.localGovOfOrigin', '_id name')
         .populate('createdBy', '-_id name')
         .populate('enrollmentDetails.enrollmentYear', 'year');
-
     return res.send({ pilgrims, totalDocs });
 });
 
@@ -160,7 +159,7 @@ router.post('/', [auth, initiator], async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails,
+    const { enrollmentDetails, personalDetails, officeDetails, nextOfKinDetails, mahrimDetails,
         passportDetails, paymentHistory, attachedDocuments } = req.body;
 
     const userLga = req.userLga;
@@ -238,20 +237,26 @@ router.post('/', [auth, initiator], async (req, res) => {
         personalDetails: { ...personalDetails },
         officeDetails: { ...officeDetails },
         nextOfKinDetails: { ...nextOfKinDetails },
+        mahrimDetails: mahrimDetails ? {...mahrimDetails} : null,
         passportDetails: { ...passportDetails },
         paymentHistory: [...paymentHistory],
         attachedDocuments: { ...attachedDocuments },
         createdBy: req.user._id
     };
 
+    console.log(JSON.stringify(body, null, 2));
+
+    pilgrim = new Pilgrim(body);
+    seat = new Seat({
+        seatNumber: pilgrim.enrollmentDetails.enrollmentAllocationNumber,
+        zone: pilgrim.enrollmentDetails.enrollmentZone,
+        year: pilgrim.enrollmentDetails.enrollmentYear
+    });
+
+    // await pilgrim.save();
+    // await seat.save();
     const session = await mongoose.startSession();
     await session.withTransaction(() => {
-        pilgrim = new Pilgrim(body);
-        seat = new Seat({
-            seatNumber: pilgrim.enrollmentDetails.enrollmentAllocationNumber,
-            zone: pilgrim.enrollmentDetails.enrollmentZone,
-            year: pilgrim.enrollmentDetails.enrollmentYear
-        });
 
         const reqs = [
             Pilgrim.create([pilgrim], { session }),
@@ -363,7 +368,8 @@ router.put('/:id', [auth, initiator_reviewer, validateObjectId], async (req, res
 
     let pilgrim = await Pilgrim.findById(req.params.id);
     if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
-
+    console.log(JSON.stringify(req.body, null, 2))
+    // return res.status(400).send('BAD')
     pilgrim = await Pilgrim.findByIdAndUpdate(req.params.id, {
         $set: req.body
     }, { new: true, useFindAndModify: false });
@@ -575,7 +581,7 @@ router.get('/reviewer/deleted-by-year-and-lga/:lga/:id', [auth, reviewer, valida
 });
 
 // Post Image
-router.post('/image', [auth, upload.array('files', 3)], (req, res) => {
+router.post('/image', [auth, upload.array('files')], (req, res) => {
     const files = req.files;
     if ((!files) || files.length < 1) {
         return res.status(400).send('Please upload a file');

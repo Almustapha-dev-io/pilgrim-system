@@ -90,6 +90,14 @@ router.get('/:id', [auth, validateObjectId], async (req, res) => {
     res.send(year);
 });
 
+router.get('/updates/:id', [auth, validateObjectId], async (req, res) => {
+    let year = await Year
+        .findById(req.params.id)
+        .select('editHistory');
+    const history = year.editHistory ? year.editHistory : [];
+    res.send(history);
+});
+
 router.get('/allocated-seats-for-lga/:id', [auth, validateObjectId], async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.body.zoneId)) {
         return res.status(400).send('Invalid Zone ID');
@@ -147,8 +155,8 @@ router.put('/add-allocation/:id', [auth, superAdmin, validateObjectId], async (r
     let year = await Year.findById(req.params.id);
     if (!year) return res.status(400).send('Invalid year ID.');
 
-    const duplicateYears = year.seatAllocations.filter(a => seatAllocations.find(b => a.zone.toString() === b.zone.toString()));
-    if (duplicateYears.length > 0) {
+    const duplicateAllocations = year.seatAllocations.filter(a => seatAllocations.find(b => a.zone.toString() === b.zone.toString()));
+    if (duplicateAllocations.length > 0) {
         return res.status(400).send('Seats have been allocated to the specified center.');
     }
 
@@ -184,6 +192,26 @@ router.put('/edit-seat-allocation/:id', [auth, validateObjectId], async (req, re
         return res.status(400).send('Number of pilgrims registered to this center are greater than the new slots.');
     }
 
+    const zoneObject = await LocalGovernment.findById(zone);
+    if (!zoneObject) return res.status(404).send('Zone with given ID not found');
+
+    
+    const previousSeatNumber = year.seatAllocations[zoneIndex].seatsAllocated;
+    const newSeatNumber = seatsAllocated;
+    const difference = newSeatNumber - previousSeatNumber;
+    const editDetails = { 
+        previousSeatNumber, 
+        newSeatNumber, 
+        difference,
+        zone: zoneObject,
+        date: new Date()
+    };
+
+    if (!year.editHistory) {
+        year.editHistory = [];
+    }
+
+    year.editHistory.push(editDetails);
     year.seatAllocations[zoneIndex].seatsAllocated = seatsAllocated;
     year = await year.save();
     res.send(year);

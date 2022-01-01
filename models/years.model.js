@@ -29,7 +29,11 @@ const yearSchema = new mongoose.Schema({
             type: Number,
             required: true
         }
-    }]
+    }],
+    editHistory: {
+        type: Array,
+        default: []
+    }
 });
 
 const Year = mongoose.model('Year', yearSchema);
@@ -63,7 +67,14 @@ function validateYearForUpdate(year) {
                 seatsAllocated: Joi.number().greater(-1)
             })).unique((a, b) => a.zone === b.zone),
         zone: Joi.objectId(),
-        seatsAllocated: Joi.number().greater(-1)
+        seatsAllocated: Joi.number().greater(-1),
+        editHistory: Joi.array().items(
+            Joi.object({
+                previousSeatNumber: Joi.number().required(),
+                newSeatNumber: Joi.number().required().greater(-1),
+                difference: Joi.number().required()
+            })
+        )
     }
 
     return Joi.validate(year, schema);

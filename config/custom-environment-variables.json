@@ -1,5 +1,7 @@
 {
     "jwtPrivateKey": "app_jwtPrivateKey",
     "database": "app_db",
-    "logDb": "app_logDb"
+    "logDb": "app_logDb",
+    "basicAuthUser": "app_basicAuthUser",
+    "basicAuthPassword": "app_basicAuthPassword"
 }

@@ -3,9 +3,57 @@ const Joi = require('joi');
 const _ = require('lodash');
 const { User } = require('../models/user.model');
 const express = require('express');
-const { Year } = require('../models/years.model');
 const router = express.Router();
 
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Auth:
+ *              type: object
+ *              required:
+ *                  - email 
+ *                  - password
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      description: The user's email
+ *                  password:
+ *                      type: string
+ *                      description: This is user's password
+ *              examples:
+ *                  email: almustaphamuha98@gmail.com
+ *                  password: password1
+ */
+
+/**
+ * @swagger
+ * tags:
+ *  name: Auths
+ *  description: API for user authentication
+ */
+
+
+/**
+ * @swagger
+ * /auths/:
+ *     post:
+ *        summary: Authenticates user
+ *        tags: [Auths]
+ *        requestBody:
+ *             required: true
+ *             content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#components/schemas/Auth'
+ *        responses:
+ *             "200":
+ *                 description: Hello
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                               $ref: '#components/schemas/Auth'
+ */
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);

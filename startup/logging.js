@@ -18,7 +18,7 @@ const logMongoTransport = new winston.transports.MongoDB({
 const errorConsoleTransport = new winston.transports.Console({ level: 'error', format: winston.format.json() });
 const errorFileTransport = new winston.transports.File({ 
     filename: 'uncaughtExceptions.log', 
-    level: 'error', 
+    level: 'error',
     format: winston.format.errors()
 });
 const errorMongoTransport =  new winston.transports.MongoDB(new winston.transports.MongoDB({
@@ -32,8 +32,8 @@ const errorMongoTransport =  new winston.transports.MongoDB(new winston.transpor
 
 const logger = winston.createLogger({
     level: 'info',
-    transports: [consoleTransport, logMongoTransport, logFileTransport],
-    exceptionHandlers: [errorConsoleTransport,errorFileTransport,errorMongoTransport]
+    transports: [consoleTransport, logMongoTransport, /* logFileTransport */errorFileTransport],
+    exceptionHandlers: [errorConsoleTransport, errorFileTransport, errorMongoTransport]
 });
 
 exports.appLogger = logger;

@@ -4,6 +4,7 @@ const morgan = require('morgan');
 
 const {appLogger:logger} = require('./startup/logging');
 const express = require('express');
+
 const app = express();
 
 const accessLogPath = path.join(__dirname, 'access-logs.log');

@@ -15,26 +15,21 @@ module.exports = async function (req, res, next) {
 
         const userRole = req.user.role;
         if (!userRole) return res.status(400).send('Invalid user role');
-
         if (!mongoose.Types.ObjectId.isValid(userRole._id)) return res.status(404).send('Invalid Role ID.');
-    
         const role = await Role.findById(userRole);
         if (!role) return res.status(400).send('Invalid role');
         req.role = role.name;
 
         const userLga = req.user.localGovernment;
         if (!userLga) return res.status(400).send('Invalid user lga');
-    
+
         const localGovernment = await LocalGovernment.findById(userLga);
         if (!localGovernment) return res.status(400).send('Invalid local gov\'t');
 
         req.userLga = userLga;
-        
         next();
-    }
-    catch (ex) {
+    } catch (ex) {
         if (ex instanceof jwt.TokenExpiredError) return res.status(599).send('Token expired, sign in.');
-        
         res.status(400).send('Invalid token.');
     }
 }

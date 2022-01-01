@@ -8,5 +8,5 @@ module.exports = function (err, req, res, next) {
     let errorMessage = 'Something failed on the server. Try again.';
     console.log(err);
     if (err.message) errorMessage = err.message;
-    res.status(500).send(errorMessage);
+    res.status(500).send('An error occured on the server!');
 }

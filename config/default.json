@@ -1,5 +1,7 @@
 {
     "jwtPrivateKey": "",
     "database": "",
-    "logDb": ""
+    "logDb": "",
+    "basicAuthUser": "",
+    "basicAuthPassword": ""
 }
