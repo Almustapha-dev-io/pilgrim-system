@@ -22,8 +22,7 @@ const yearSchema = new mongoose.Schema({
         zone: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'LocalGovernment',
-            required: true,
-            unique: true
+            required: true
         },
         seatsAllocated: {
             type: Number,

@@ -222,7 +222,6 @@ router.post('/', [auth, initiator], async (req, res) => {
     }
 
     const pilgrimNumber = `KD${zeros + enrollmentDetails.enrollmentAllocationNumber}${localGov.code}-${year.year}`.toUpperCase();
-
     let pilgrim = await Pilgrim.findOne({ 'enrollmentDetails.code': pilgrimNumber });
     if (pilgrim) {
         return res.status(400).send(`Pilgrim ${pilgrimNumber} has been assigned to slot #${pilgrim.enrollmentDetails.enrollmentAllocationNumber}`);
@@ -359,6 +358,85 @@ router.put('/assign-seat/:id', [auth, validateObjectId], async (req, res) => {
     });
 
     res.send({ pilgrim, seat });
+});
+
+router.put('/migrate', auth, async (req, res) => {
+    const { pilgrimId, yearId, allocationNumber } = req.body;
+    if (!mongoose.Types.ObjectId.isValid(pilgrimId)) return res.status(400).send('Invalid pilgrim id');
+    if (!mongoose.Types.ObjectId.isValid(yearId)) return res.status(400).send('Invalid year id');
+    if (!allocationNumber || allocationNumber <= 0) return res.status(400).send('Invalid allocation number');
+
+    let pilgrim = await Pilgrim.findById(pilgrimId);
+    if (!pilgrim) return res.status(404).send('Pilgrim with given ID not found.');
+
+    if (pilgrim.deleted) return res.status(400).send('Pilgrim flagged for deletion.')
+
+    let year = await Year.findById(yearId);
+    if (!year) return res.status(404).send('Year not found');
+
+    const seatAllocations = year.seatAllocations;
+    if (!seatAllocations) return res.status(400).send('No allocations for this year');
+    
+    const centerAllocation = seatAllocations.find(al => al.zone.toString() === pilgrim.enrollmentDetails.enrollmentZone.toString());
+    if (!centerAllocation) return res.status(400).send('No seat allocations for this registration center. Contact admin');
+
+    if (centerAllocation.seatsAllocated < allocationNumber) {
+        return res.status(400).send(`Only ${centerAllocation.seatsAllocated} allocations are allowed for this registration center.`)
+    }
+
+    const localGov = await LocalGovernment.findById(pilgrim.enrollmentDetails.enrollmentZone);
+    if (!localGov) return res.status(400).send('Invalid enrollment local gov\'t.');
+    
+    const exisitngAllocation =  await Seat.findOne({
+        seatNumber: allocationNumber,
+        zone: localGov._id,
+        year: year._id
+    });
+    if (exisitngAllocation) {
+        return res.status(400).send('The selected allocation number is unavailable');
+    }
+
+    const passportExpiryDate = new Date(pilgrim.passportDetails.expiryDate).getTime();
+    if (passportExpiryDate <= new Date().getTime()) {
+        return res.status(400).send('Pilgrim\'s passport is expired. Please update passport details.');
+    }
+
+    let zeros = '';
+    if (allocationNumber < 10) {
+        zeros = '000'
+    } else if (allocationNumber >= 10 && allocationNumber < 100) {
+        zeros = '00'
+    } else if (allocationNumber >= 100 && allocationNumber < 1000) {
+        zeros = '0'
+    }
+    const pilgrimNumber = `KD${zeros + allocationNumber}${localGov.code}-${year.year}`.toUpperCase();
+    let existingPilgrim = await Pilgrim.findOne({ 'enrollmentDetails.code': pilgrimNumber });
+    if (existingPilgrim) {
+        return res.status(400).send(`Pilgrim ${pilgrimNumber} has been assigned to seat ${existingPilgrim.enrollmentDetails.enrollmentAllocationNumber}`);
+    }
+
+    pilgrim.enrollmentDetails.enrollmentYear = year._id;
+    pilgrim.enrollmentDetails.enrollmentAllocationNumber = allocationNumber;
+    pilgrim.enrollmentDetails.code = pilgrimNumber;
+
+    const seat = new Seat({
+        seatNumber: pilgrim.enrollmentDetails.enrollmentAllocationNumber,
+        zone: pilgrim.enrollmentDetails.enrollmentZone,
+        year: pilgrim.enrollmentDetails.enrollmentYear
+    });
+
+    const session = await mongoose.startSession();
+    await session.withTransaction(() => {
+
+        const reqs = [
+            pilgrim.save({ session }),
+            seat.save({ session })
+        ];
+
+        return Promise.all(reqs);
+    });
+
+    res.send({ pilgrim });
 });
 
 //  update pilgrim admin (lga === pilgrim.lga)
