@@ -16099,3 +16099,4 @@
 ::ffff:127.0.0.1 - admin [09/Jan/2022:20:55:02 +0000] "GET /api/v1/allocations/almustaphamuha98@gmail.com?yearId=608f16f5972a130004e9dc76 HTTP/1.1" 200 156 "-" "PostmanRuntime/7.28.4"
 ::1 - admin [09/Jan/2022:20:55:23 +0000] "GET /api/v1/allocations/almustaphamuha98@gmail.com?yearId=61dab05ae3da1976d80332e3 HTTP/1.1" 200 - "-" "PostmanRuntime/7.28.4"
 ::1 - admin [09/Jan/2022:20:57:18 +0000] "GET /api/v1/allocations/almustaphamuha98@gmail.com/payments?yearId=61dab05ae3da1976d80332e3 HTTP/1.1" 200 - "-" "PostmanRuntime/7.28.4"
+::1 - admin [09/Jan/2022:20:59:15 +0000] "GET /api/v1/allocations/almustaphamuha98@gmail.com/payments?yearId=61dab05ae3da1976d80332e3 HTTP/1.1" 200 928 "-" "PostmanRuntime/7.28.4"
