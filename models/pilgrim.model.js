@@ -2,46 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const pilgrimSchema = new mongoose.Schema({
-
-    enrollmentDetails: {
-        code: {
-            type: String,
-            // required: true,
-            // unique: true,
-            minlength: 12,
-            uppercase: true
-        },
-        hajjExperience: {
-            type: String,
-            required: true,
-            minlength: 4,
-            maxlength: 50,
-            lowercase: true
-        },
-        lastHajjYear: {
-            type: String,
-            required: true,
-            minlength: 4,
-            maxlength: 4,
-            default: '0000'
-        },
-        enrollmentZone: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'LocalGovernment'
-        },
-        enrollmentYear: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Year'
-        },
-        enrollmentAllocationNumber: {
-            type: Number,
-            // required: true
-        }
-    },
-
-    personalDetails: {
+    personalDetails: {  
         surname: { 
             type: String,
             required: true,
@@ -96,7 +57,13 @@ const pilgrimSchema = new mongoose.Schema({
             type: String,
             minlength: 11,
             maxlength: 11,
-            required: true
+            required: true,
+            unique: true
+        },
+        email: {
+            type: String,
+            unique: true,
+            lowercase: true
         },
         alternatePhone: {
             type: String
@@ -199,6 +166,7 @@ const pilgrimSchema = new mongoose.Schema({
         },
         passportNumber: {
             type: String,
+            unique: true,
             required: true
         },
         placeOfIssue: {
@@ -214,34 +182,6 @@ const pilgrimSchema = new mongoose.Schema({
             required: true
         }
     },
-
-    paymentHistory: [{
-        bank: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Bank'
-        },
-        tellerNumber: {
-            type: String,
-            required: true,
-            unique: true,
-            lowercase: true
-        },
-        receiptNumber:  {
-            type: String,
-            required: true,
-            unique: true,
-            lowercase: true
-        },
-        paymentDate: {
-            type: Date,
-            required: true
-        },
-        amount: {
-            type: Number,
-            required: true
-        }
-    }],
 
     attachedDocuments: {
         guarantorFormUrl: {
@@ -264,13 +204,6 @@ const pilgrimSchema = new mongoose.Schema({
             docUrl: String
         }]
     },
-    deleted: {
-        type: Boolean,
-        default: false    
-    },
-    deletionReason: String,
-    fundRefunded: String,
-    amountRefunded: Number,
     dateCreated: {
         type: Date,
         default: Date.now
@@ -285,17 +218,7 @@ const pilgrimSchema = new mongoose.Schema({
 const Pilgrim = mongoose.model('Pilgrim', pilgrimSchema);
 
 function validatePilgrim(pilgrim) {
-    const schema = {
- 
-        enrollmentDetails: Joi.object({
-            hajjExperience: Joi.string().min(4).max(50).required(),
-            lastHajjYear: Joi.string().min(4).max(4).required(),
-            enrollmentZone: Joi.objectId().required(),
-            enrollmentAllocationNumber: Joi.number().greater(0).required(),
-            enrollmentYear: Joi.number().integer().required()
-        }).required(),
-
- 
+    const schema = { 
         personalDetails: Joi.object({
             surname: Joi.string().min(2).max(24).required(),
             otherNames: Joi.string().min(2).max(150).required(),
@@ -306,6 +229,7 @@ function validatePilgrim(pilgrim) {
             localGovOfOrigin: Joi.objectId().required(),
             dateOfBirth: Joi.date().required(),
             phone: Joi.string().min(11).max(11).required(),
+            email: Joi.string().email(),
             alternatePhone: Joi.string().min(11).max(11).allow(null, '')
         }).required(),
 
@@ -341,18 +265,6 @@ function validatePilgrim(pilgrim) {
             expiryDate: Joi.date().required()
         }).required(),
 
-        paymentHistory: Joi.array().items(Joi.object({
-            bank: Joi.objectId().required(),
-            tellerNumber: Joi.string().required(),
-            receiptNumber: Joi.string().required(),
-            paymentDate: Joi.date().required(),
-            amount: Joi.number().required()
-        }))
-        .unique((a, b) => a.tellerNumber === b.tellerNumber)
-        .unique((a, b) => a.receiptNumber === b.receiptNumber)
-        .required(),
-
- 
         attachedDocuments: Joi.object({
             guarantorFormUrl: Joi.string().required(),
             passportUrl: Joi.string().required(),
@@ -369,14 +281,6 @@ function validatePilgrim(pilgrim) {
 
 function validatePilgrimForUpdate(pilgrim) {
     const schema = {
-        enrollmentDetails: Joi.object({
-            hajjExperience: Joi.string().min(4).max(50),
-            lastHajjYear: Joi.string().min(4).max(4),
-            enrollmentZone: Joi.objectId(),
-            enrollmentAllocationNumber: Joi.number().greater(0),
-            enrollmentYear: Joi.number().integer()
-        }),
-
         personalDetails: Joi.object({
             surname: Joi.string().min(2).max(24),
             otherNames: Joi.string().min(2).max(150),
@@ -387,6 +291,7 @@ function validatePilgrimForUpdate(pilgrim) {
             localGovOfOrigin: Joi.objectId(),
             dateOfBirth: Joi.date(),
             phone: Joi.string().min(11).max(11),
+            email: Joi.string().email(),
             alternatePhone: Joi.string().min(11).max(11).allow(null, '')
         }),
 
@@ -419,16 +324,6 @@ function validatePilgrimForUpdate(pilgrim) {
             expiryDate: Joi.date()
         }),
 
-        paymentHistory: Joi.array().items(Joi.object({
-            bank: Joi.objectId().required(),
-            tellerNumber: Joi.string().required(),
-            receiptNumber: Joi.string().required(),
-            paymentDate: Joi.date().required(),
-            amount: Joi.number().required(),
-        }))
-        .unique((a, b) => a.tellerNumber === b.tellerNumber)
-        .unique((a, b) => a.receiptNumber === b.receiptNumber),
-
         attachedDocuments: Joi.object({
             guarantorFormUrl: Joi.string(),
             passportUrl: Joi.string(),
@@ -437,12 +332,7 @@ function validatePilgrimForUpdate(pilgrim) {
                 documentName: Joi.string(),
                 docUrl: Joi.string()
             }))
-        }),
-        
-        deleted: Joi.boolean(),
-        deletionReason: Joi.string(),
-        fundRefunded: Joi.string(),
-        amountRefunded: Joi.number()
+        })  
     }
 
     return Joi.validate(pilgrim, schema);

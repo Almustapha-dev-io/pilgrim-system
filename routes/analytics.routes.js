@@ -5,6 +5,7 @@ const validateObjectId = require('../middleware/validateObjectId');
 const auth = require('../middleware/auth');
 
 const { Pilgrim } = require('../models/pilgrim.model');
+const { Allocation } = require('../models/allocation.model');
 const { LocalGovernment } = require('../models/localGovernment.model');
 
 const router = express.Router();
@@ -15,35 +16,40 @@ router.get('/all-pilgrims', auth, async (req, res) => {
     res.send({ count });
 });
 
+router.get('/all-allocations', auth, async (req, res) => {
+    const count = await Allocation.countDocuments({ deleted: false });
+    res.send({ count });
+});
+
 // All pilgrims count by year
-router.get('/all-pilgrims-by-year/:id', [auth, validateObjectId], async (req, res) => {
-    const count = await Pilgrim.countDocuments({ 'enrollmentDetails.enrollmentYear': req.params.id });
+router.get('/all-allocations-by-year/:id', [auth, validateObjectId], async (req, res) => {
+    const count = await Allocation.countDocuments({ 'enrollmentYear': req.params.id, deleted: false });
     res.send({ count });
 });
 
 // All pilgrims count for an lga
-router.get('/lga-pilgrims-count/:id', [auth, validateObjectId], async (req, res) => {
-    const count =  await Pilgrim.countDocuments({ 'enrollmentDetails.enrollmentZone': req.params.id });
+router.get('/lga-allocations-count/:id', [auth, validateObjectId], async (req, res) => {
+    const count =  await Allocation.countDocuments({ 'enrollmentZone': req.params.id, deleted: false });
     res.send({ count });
 });
 
 // All pilgrims count for an lga by year
-router.get('/lga-pilgrims-count/:id/:yearId', [auth, validateObjectId], async (req, res) => {
+router.get('/lga-allocations-count/:id/:yearId', [auth, validateObjectId], async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.yearId)) {
         return res.status(400).send('Invalid Year Id');
     }
 
-    const count =  await Pilgrim
+    const count =  await Allocation
         .countDocuments({ 
-            'enrollmentDetails.enrollmentZone': req.params.id,
-            'enrollmentDetails.enrollmentYear': req.params.yearId
+            'enrollmentZone': req.params.id,
+            'enrollmentYear': req.params.yearId
         });
 
     res.send({ count });
 });
 
 //  All Pilgrims count for all local gov
-router.get('/all-lga-pilgrim-count', auth, async (req, res) => {
+router.get('/all-lga-allocations-count', auth, async (req, res) => {
     const fetchedLocalGovs = await LocalGovernment
         .find({ code: {$nin: ['00', '01'] }})
         .select('_id name')
@@ -55,7 +61,7 @@ router.get('/all-lga-pilgrim-count', auth, async (req, res) => {
     let index = fetchedLocalGovs.length - 1;
 
     fetchedLocalGovs.forEach(async (lg, i) => {
-        let count = await Pilgrim.countDocuments({ 'enrollmentDetails.enrollmentZone': lg._id });
+        let count = await Allocation.countDocuments({ 'enrollmentZone': lg._id, deleted: false });
         localGovsPilgrimsCount.push(count);
         localGovs.push(lg.name)
 
@@ -64,7 +70,7 @@ router.get('/all-lga-pilgrim-count', auth, async (req, res) => {
 });
 
 // All pilgrims Pilgrims count for all local gov by year
-router.get('/all-lga-pilgrim-count/:id', [auth, validateObjectId], async (req, res) => {
+router.get('/all-lga-allocations-count/:id', [auth, validateObjectId], async (req, res) => {
     const fetchedLocalGovs = await LocalGovernment
         .find({ code: {$nin: ['00', '01'] }})
         .select('_id name')
@@ -76,10 +82,11 @@ router.get('/all-lga-pilgrim-count/:id', [auth, validateObjectId], async (req, r
     let index = fetchedLocalGovs.length - 1;
 
     fetchedLocalGovs.forEach(async (lg, i) => {
-        let count = await Pilgrim
+        let count = await Allocation
             .countDocuments({ 
-                'enrollmentDetails.enrollmentZone': lg._id,
-                'enrollmentDetails.enrollmentYear': req.params.id
+                'enrollmentZone': lg._id,
+                'enrollmentYear': req.params.id,
+                deleted: false
             });
 
         localGovsPilgrimsCount.push(count);
