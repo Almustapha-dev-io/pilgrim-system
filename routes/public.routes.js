@@ -161,7 +161,7 @@ router.get('/allocations/:idOrEmailOrPhone/payments', basicAuth, async (req, res
 });
 
 
-router.get('/allocations/:zoneId/zone', /* basicAuth, */ async (req, res) => {
+router.get('/allocations/:zoneId/zone', basicAuth, async (req, res) => {
     const pageSize = +req.query.pageSize || 5;
     const page = +req.query.page || 1;
     const zoneId = req.params.zoneId;
