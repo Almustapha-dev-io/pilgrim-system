@@ -160,4 +160,35 @@ router.get('/allocations/:idOrEmailOrPhone/payments', basicAuth, async (req, res
     res.send({ payments, totalDocs });
 });
 
+
+router.get('/allocations/:zoneId/zone', /* basicAuth, */ async (req, res) => {
+    const pageSize = +req.query.pageSize || 5;
+    const page = +req.query.page || 1;
+    const zoneId = req.params.zoneId;
+
+    if (!mongoose.Types.ObjectId.isValid(zoneId)) return res.status(400).send('Invalid ID');
+    const query = {
+        deleted: false,
+        migrated: false,
+        enrollmentZone: zoneId
+    };
+
+    const yearId = req.query.yearId;
+    if (yearId) {
+        if (!mongoose.Types.ObjectId.isValid(yearId)) return res.status(400).send('Invalid year id');
+        query.enrollmentYear = yearId;
+    }
+
+    const totalDocs = await Allocation.countDocuments(query);
+    const allocations = await Allocation.find(query)
+        .sort('enrollmentZone.name')
+        .skip((page-1) * pageSize)
+        .limit(pageSize)
+        .populate('pilgrim')
+        .populate('enrollmentYear', '-seatAllocations')
+        .populate('enrollmentZone');
+
+    res.send({ allocations, totalDocs });
+});
+
 module.exports = router;
