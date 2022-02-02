@@ -191,4 +191,15 @@ router.get('/allocations/:zoneId/zone', basicAuth, async (req, res) => {
     res.send({ allocations, totalDocs });
 });
 
+router.get('/allocations/:pilgrimCode/pilgrim-code', basicAuth, async (req, res) => {
+    const pilgrimCode = req.params.pilgrimCode; 
+    const allocation = await Allocation.findOne({ code: pilgrimCode })
+        .populate('pilgrim')
+        .populate('enrollmentYear', '-seatAllocations -editHistory')
+        .populate('enrollmentZone');
+
+    if (!allocation) return res.status(404).send('Allocation with code not found!');
+    res.send(allocation);
+});
+
 module.exports = router;
