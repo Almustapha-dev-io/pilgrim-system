@@ -118,6 +118,18 @@ router.get('/allocations/:idOrEmailOrPhone', basicAuth, async (req, res) => {
     res.send({ allocations, totalDocs });
 });
 
+router.get('/allocations/:pilgrimCode/payments/pilgrim-code', basicAuth, async (req, res) => {
+    const pageSize = +req.query.pageSize || 5;
+    const page = +req.query.page || 1;
+    const pilgrimCode = req.params.pilgrimCode;
+
+    const payments = await Allocation.find({ code: pilgrimCode }, ['paymentHistory', 'enrollmentZone', 'enrollmentYear'])
+        .sort('enrollmentZone.name')
+        .populate('enrollmentYear', '-seatAllocations')
+        .populate('enrollmentZone');
+
+    res.send(payments);
+});
 
 router.get('/allocations/:idOrEmailOrPhone/payments', basicAuth, async (req, res) => {
     const pageSize = +req.query.pageSize || 5;
