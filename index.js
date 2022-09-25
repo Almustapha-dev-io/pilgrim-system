@@ -12,7 +12,7 @@ const logStream = fs.createWriteStream(accessLogPath, { flags: 'a' });
 
 app.use(morgan('combined', { stream: logStream }));
 
-require('./startup/logging').log();
+// require('./startup/logging').log();
 require('./startup/prod')(app);
 require('./startup/routes')(app);
 require('./startup/db')();
