@@ -28,7 +28,8 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/by-year/:year', auth, async (req, res) => {
   const year = await Year.findOne({ year: req.params.year });
-  if (!year) return res.status(404).send(req.params.year + ' not found.');
+  if (!year)
+    return res.status(404).json({ error: req.params.year + ' not found.' });
 
   res.json(year);
 });
@@ -95,7 +96,7 @@ router.get(
   [auth, validateObjectId],
   async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.body.zoneId)) {
-      return res.status(400).send('Invalid Zone ID');
+      return res.status(400).json({ error: 'Invalid Zone ID' });
     }
 
     const year = await Year.findById(req.params.id).populate(
@@ -103,7 +104,8 @@ router.get(
       '_id name code'
     );
 
-    if (!year) return res.status(404).send('Year with given ID not found.');
+    if (!year)
+      return res.status(404).json({ error: 'Year with given ID not found.' });
 
     const fetchedZone = year.seatAllocations.find(
       (a) => a.zone._id.toString() === req.body.zoneId.toString()
@@ -111,7 +113,7 @@ router.get(
     if (!fetchedZone)
       return res
         .status(404)
-        .send('Selected zone not in seat allocations list.');
+        .json({ error: 'Selected zone not in seat allocations list.' });
 
     res.json(fetchedZone);
   }
@@ -119,7 +121,7 @@ router.get(
 
 router.post('/', [auth, superAdmin], async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const { year, active, dateOpened, lastClosed, seatAllocations } = req.body;
 
@@ -127,14 +129,15 @@ router.post('/', [auth, superAdmin], async (req, res) => {
     const validObjectIDs = seatAllocations.every((lg) =>
       mongoose.Types.ObjectId.isValid(lg.zone)
     );
-    if (!validObjectIDs) return res.status(400).send('Invalid Zone ID');
+    if (!validObjectIDs)
+      return res.status(400).json({ error: 'Invalid Zone ID' });
   }
 
   let fetchedYear = await Year.findOne({ year: req.body.year });
   if (fetchedYear)
     return res
       .status(400)
-      .send(`${fetchedYear.year} Hajj year already opened.`);
+      .json({ error: `${fetchedYear.year} Hajj year already opened.` });
 
   fetchedYear = new Year({
     year,
@@ -158,20 +161,23 @@ router.put(
   [auth, superAdmin, validateObjectId],
   async (req, res) => {
     const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
     const { seatAllocations } = req.body;
     if (seatAllocations.length < 1) {
-      return res.status(400).send('Please provide atleast one allocation.');
+      return res
+        .status(400)
+        .json({ error: 'Please provide atleast one allocation.' });
     }
 
     const validObjectIDs = seatAllocations.every((lg) =>
       mongoose.Types.ObjectId.isValid(lg.zone)
     );
-    if (!validObjectIDs) return res.status(400).send('Invalid Zone ID');
+    if (!validObjectIDs)
+      return res.status(400).json({ error: 'Invalid Zone ID' });
 
     let year = await Year.findById(req.params.id);
-    if (!year) return res.status(400).send('Invalid year ID.');
+    if (!year) return res.status(400).json({ error: 'Invalid year ID.' });
 
     const duplicateAllocations = year.seatAllocations.filter((a) =>
       seatAllocations.find((b) => a.zone.toString() === b.zone.toString())
@@ -179,7 +185,7 @@ router.put(
     if (duplicateAllocations.length > 0) {
       return res
         .status(400)
-        .send('Seats have been allocated to the specified center.');
+        .json({ error: 'Seats have been allocated to the specified center.' });
     }
 
     year.seatAllocations = [...year.seatAllocations, ...seatAllocations];
@@ -194,17 +200,20 @@ router.put(
   [auth, validateObjectId],
   async (req, res) => {
     const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
     const { zone, seatsAllocated } = req.body;
     if (!zone || !seatsAllocated)
-      return res.status(400).send('Please provide all required parameters');
+      return res
+        .status(400)
+        .json({ error: 'Please provide all required parameters' });
 
     let year = await Year.findById(req.params.id);
-    if (!year) return res.status(400).send('Please provide a valid year');
+    if (!year)
+      return res.status(400).json({ error: 'Please provide a valid year' });
 
     if (!mongoose.Types.ObjectId.isValid(zone)) {
-      return res.status(400).send('Zone ID provided is invalid');
+      return res.status(400).json({ error: 'Zone ID provided is invalid' });
     }
 
     let zoneIndex = year.seatAllocations.findIndex(
@@ -213,7 +222,7 @@ router.put(
     if (zoneIndex === -1)
       return res
         .status(400)
-        .send('Provided zone has not been allocated any seats.');
+        .json({ error: 'Provided zone has not been allocated any seats.' });
 
     const pilgrimsCount = await Pilgrim.countDocuments({
       'enrollmentDetails.enrollmentYear': year._id,
@@ -221,16 +230,15 @@ router.put(
     });
 
     if (pilgrimsCount > seatsAllocated) {
-      return res
-        .status(400)
-        .send(
-          'Number of pilgrims registered to this center are greater than the new slots.'
-        );
+      return res.status(400).jso({
+        error:
+          'Number of pilgrims registered to this center are greater than the new slots.',
+      });
     }
 
     const zoneObject = await LocalGovernment.findById(zone);
     if (!zoneObject)
-      return res.status(404).send('Zone with given ID not found');
+      return res.status(404).json({ error: 'Zone with given ID not found' });
 
     const previousSeatNumber = year.seatAllocations[zoneIndex].seatsAllocated;
     const newSeatNumber = seatsAllocated;
@@ -256,13 +264,13 @@ router.put(
 
 /* router.post('/open-new-hajj-year', [auth, superAdmin], async (req, res) => {
     const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({error: error.details[0].message});
 
     const date = new Date();
     const newYear = moment(date).format('YYYY');
     
     let year = await Year.findOne({ year: newYear });
-    if (year) return res.status(400).send(`${newYear} Hajj year already opened.`);
+    if (year) return res.status(400).json({error: `${newYear} Hajj year already opened.`});
 
     await Year.updateMany({}, {
         $set: { active: false }
@@ -285,7 +293,8 @@ router.put(
       },
       { new: true, useFindAndModify: false }
     );
-    if (!year) return res.status(404).send(`${newYear} Hajj not opened yet.`);
+    if (!year)
+      return res.status(404).json({ error: `${newYear} Hajj not opened yet.` });
 
     res.json(year);
   }
@@ -302,7 +311,8 @@ router.put(
       },
       { new: true, useFindAndModify: false }
     );
-    if (!year) return res.status(400).send('There is no active hajj year.');
+    if (!year)
+      return res.status(400).json({ error: 'There is no active hajj year.' });
 
     res.json(year);
   }

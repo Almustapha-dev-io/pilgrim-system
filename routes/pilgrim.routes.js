@@ -35,9 +35,10 @@ router.get(
     if (!pilgrim)
       return res
         .status(404)
-        .send(
-          'Pilgrim with the given id has not been registered in your zone.'
-        );
+        .json({
+          error:
+            'Pilgrim with the given id has not been registered in your zone.',
+        });
     return res.json(pilgrim);
   }
 );
@@ -82,19 +83,22 @@ router.get('/', auth, async (req, res) => {
 // create pilgrim initiator
 router.post('/', [auth, initiator], async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const state = await State.findById(req.body.personalDetails.stateOfOrigin);
-  if (!state) return res.status(400).send('Invalid state of origin.');
+  if (!state)
+    return res.status(400).json({ error: 'Invalid state of origin.' });
 
   const lgaOfOrigin = await Lga.findById(
     req.body.personalDetails.localGovOfOrigin
   );
   if (!lgaOfOrigin)
-    return res.status(400).send("Invalid local gov't of origin.");
+    return res.status(400).json({ error: "Invalid local gov't of origin." });
 
   if (lgaOfOrigin.name.trim() === '00') {
-    return res.status(400).send('Cannot assign pilgrim to this lga.');
+    return res
+      .status(400)
+      .json({ error: 'Cannot assign pilgrim to this lga.' });
   }
 
   const mahrimDetails = req.body.mahrimDetails;
@@ -113,10 +117,10 @@ router.put(
   [auth, initiator_reviewer, validateObjectId],
   async (req, res) => {
     const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
     let pilgrim = await Pilgrim.findById(req.params.id);
-    if (!pilgrim) return res.status(400).send('Invalid pilgrim.');
+    if (!pilgrim) return res.status(400).json({ error: 'Invalid pilgrim.' });
 
     pilgrim = await Pilgrim.findByIdAndUpdate(
       req.params.id,
@@ -126,7 +130,9 @@ router.put(
       { new: true, useFindAndModify: false }
     );
     if (!pilgrim)
-      return res.status(404).send('Pilgrim with given ID not found.');
+      return res
+        .status(404)
+        .json({ error: 'Pilgrim with given ID not found.' });
 
     res.json(pilgrim);
   }
@@ -135,7 +141,7 @@ router.put(
 router.post('/image', [auth, upload.array('files')], (req, res) => {
   const files = req.files;
   if (!files || files.length < 1) {
-    return res.status(400).send('Please upload a file');
+    return res.status(400).json({ error: 'Please upload a file' });
   }
 
   res.json({ message: 'Image received successfully.' });
@@ -150,7 +156,7 @@ router.get('/image/:name', async (req, res) => {
     contentType = 'image/jpeg';
   }
   fs.access(path.join(imagePath, req.params.name), fs.F_OK, (e) => {
-    if (e) res.status(404).send('File not found!');
+    if (e) res.status(404).json({ error: 'File not found!' });
     else {
       const file = fs.createReadStream(path.join(imagePath, req.params.name));
       res.setHeader('Content-type', contentType);

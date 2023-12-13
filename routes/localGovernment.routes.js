@@ -23,20 +23,24 @@ router.get('/', auth, async (req, res) => {
 router.get('/:id', [auth, validateObjectId], async (req, res) => {
   const localGov = await LocalGovernment.findById(req.params.id);
   if (!localGov)
-    return res.status(404).send("Local Gov't with given ID not found.");
+    return res
+      .status(404)
+      .json({ error: "Local Gov't with given ID not found." });
 
   res.json(localGov);
 });
 
 router.post('/', [auth, superAdmin], async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const { name, code } = req.body;
 
   let localGov = await LocalGovernment.findOne({ name, code });
   if (localGov)
-    return res.status(400).send(`${name} local government already exists.`);
+    return res
+      .status(400)
+      .json({ error: `${name} local government already exists.` });
 
   localGov = new LocalGovernment({ name, code });
 
@@ -46,7 +50,7 @@ router.post('/', [auth, superAdmin], async (req, res) => {
 
 router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
   const { error } = validateForUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const localGov = await LocalGovernment.findByIdAndUpdate(
     req.params.id,
@@ -56,7 +60,9 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     { new: true, useFindAndModify: false }
   );
   if (!localGov)
-    return res.status(404).send("Local gov't with given ID not found.");
+    return res
+      .status(404)
+      .json({ error: "Local gov't with given ID not found." });
 
   res.json(localGov);
 });
@@ -69,7 +75,9 @@ router.delete(
       useFindAndModify: false,
     });
     if (!localGov)
-      return res.status(404).send("Local gov't with given ID not found.");
+      return res
+        .status(404)
+        .json({ error: "Local gov't with given ID not found." });
 
     res.json(localGov);
   }

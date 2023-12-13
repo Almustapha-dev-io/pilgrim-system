@@ -55,23 +55,26 @@ router.get(
 
 router.post('/', [auth, superAdmin], async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const { name, email, roleId, localGovernmentId } = req.body;
 
   const role = await Role.findById(roleId);
-  if (!role) return res.status(400).send('Role with given id not found.');
+  if (!role)
+    return res.status(400).json({ error: 'Role with given id not found.' });
 
   const localGov = await LocalGovernment.findById(localGovernmentId);
   if (!localGov)
-    return res.status(400).send("Local gov't with given id not found.");
+    return res
+      .status(400)
+      .json({ error: "Local gov't with given id not found." });
 
   let user;
   user = await User.findOne({ email });
   if (user)
     return res
       .status(400)
-      .send(`A user with email ${user.email} already exists.`);
+      .json({ error: `A user with email ${user.email} already exists.` });
 
   user = await User.findOne({
     localGovernment: localGovernmentId,
@@ -80,7 +83,7 @@ router.post('/', [auth, superAdmin], async (req, res) => {
   if (user)
     return res
       .status(400)
-      .send(
+      .json(
         `A user with email ${user.email} has been assigned to the selected local gov\'t.`
       );
 
@@ -104,14 +107,14 @@ router.put(
   [auth, superAdmin, validateObjectId],
   async (req, res) => {
     const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
     const roleId = req.body.roleId;
     const role = await Role.findById(roleId);
-    if (!role) return res.status(400).send('Invalid role');
+    if (!role) return res.status(400).json({ error: 'Invalid role' });
 
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(400).send('Invalid user');
+    if (!user) return res.status(400).json({ error: 'Invalid user' });
 
     const existingUser = await User.findOne({
       localGovernment: user.localGovernment,
@@ -121,7 +124,7 @@ router.put(
       console.log(existingUser, user);
       return res
         .status(400)
-        .send(
+        .json(
           `${existingUser.name} : ${existingUser.email} has already been assigned to this role.`
         );
     }
@@ -135,7 +138,7 @@ router.put(
 
 router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
   const { error } = validateForUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const { name, email, localGovernmentId } = req.body;
   let user;
@@ -144,17 +147,22 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     user = await User.findOne({ email });
     if (user) {
       if (user._id.toString() !== req.params.id) {
-        return res.status(400).send('User with given email already exists.');
+        return res
+          .status(400)
+          .json({ error: 'User with given email already exists.' });
       }
     }
   }
 
   if (localGovernmentId) {
     const localGov = await LocalGovernment.findById(localGovernmentId);
-    if (!localGov) return res.status(400).send("Invalid local gov't");
+    if (!localGov)
+      return res.status(400).json({ error: "Invalid local gov't" });
 
     if (localGov.code === '00')
-      return res.status(400).send("Cannot assign user to this local gov't.");
+      return res
+        .status(400)
+        .json({ error: "Cannot assign user to this local gov't." });
 
     const existingUser = await User.findOne({
       localGovernment: localGovernmentId,
@@ -163,7 +171,7 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
       if (existingUser._id.toString() !== req.params.id) {
         return res
           .status(400)
-          .send(
+          .json(
             `A user with email ${existingUser.email} has been assigned to the selected local gov\'t.`
           );
       }
@@ -177,7 +185,8 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     },
     { new: true, useFindAndModify: false }
   );
-  if (!user) return res.status(404).send('User with given ID not found.');
+  if (!user)
+    return res.status(404).json({ error: 'User with given ID not found.' });
 
   res.json(user);
 });
@@ -196,7 +205,8 @@ router.put(
       },
       { new: true, useFindAndModify: false }
     );
-    if (!user) return res.status(404).send('User with given ID not found.');
+    if (!user)
+      return res.status(404).json({ error: 'User with given ID not found.' });
 
     res.json(user);
   }
@@ -207,20 +217,21 @@ router.put(
   [auth, validateObjectId],
   async (req, res) => {
     const { error } = validatePassword(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
     const { password, currentPassword } = req.body;
 
     let user = await User.findById(req.params.id);
-    if (!user) return res.status(404).send('User with given ID not found.');
+    if (!user)
+      return res.status(404).json({ error: 'User with given ID not found.' });
 
     const validPassword = await bcrypt.compare(currentPassword, user.password);
     if (!validPassword)
-      return res.status(400).send('Current password incorrect');
+      return res.status(400).json({ error: 'Current password incorrect' });
 
     const defaultPassword = 'password';
     if (password.toLowerCase() === defaultPassword)
-      return res.status(400).send('Cannot use default password');
+      return res.status(400).json({ error: 'Cannot use default password' });
 
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
@@ -237,25 +248,25 @@ router.put(
 /* 
 router.put('/roles/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).json({error: error.details[0].message});
 
     const { roleId } = req.body;
 
     const role = await Role.findById(roleId);
-    if (!role) return res.status(400).send('Invalid role ID.');
+    if (!role) return res.status(400).json({error: 'Invalid role ID.'});
 
     const users 
 
     let user = await User.findById(req.params.id);
-    if (!user) return res.status(404).send('User with given ID not found.');
+    if (!user) return res.status(404).json({error: 'User with given ID not found.'});
 
     if (user.role === 'doctor' || user.role === 'labscientist')
-        return res.status(400).send('Cannot change role of a doctor/labscientist user.');
+        return res.status(400).json({error: 'Cannot change role of a doctor/labscientist user.'});
 
     user = await User.findByIdAndUpdate(req.params.id, {
         $set: { role: req.body.role }
     }, { new: true, useFindAndModify: false });
-    if (!user) return res.status(404).send('User with given ID not found.');
+    if (!user) return res.status(404).json({error: 'User with given ID not found.'});
 
     res.json(user);
 }); */
@@ -264,7 +275,8 @@ router.get('/by-email/:email', [auth, superAdmin], async (req, res) => {
   const user = await User.findOne({ email: req.params.email })
     .populate('role', '_id name')
     .populate('localGovernment', '_id name code');
-  if (!user) return res.status(404).send('User with given email not found.');
+  if (!user)
+    return res.status(404).json({ error: 'User with given email not found.' });
 
   res.json(user);
 });
@@ -273,7 +285,8 @@ router.get('/:id', [auth, validateObjectId], async (req, res) => {
   const user = await User.findById(req.params.id)
     .populate('role', '_id name')
     .populate('localGovernment', '_id name code');
-  if (!user) return res.status(404).send('User with given ID not found.');
+  if (!user)
+    return res.status(404).json({ error: 'User with given ID not found.' });
 
   res.json(user);
 });
@@ -285,7 +298,8 @@ router.delete(
     const user = await User.findByIdAndRemove(req.params.id, {
       useFindAndModify: false,
     });
-    if (!user) return res.status(404).send('User with given ID not found.');
+    if (!user)
+      return res.status(404).json({ error: 'User with given ID not found.' });
 
     res.json(user);
   }

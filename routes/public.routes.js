@@ -50,9 +50,9 @@ router.get('/pilgrims/:idOrEmailOrPhone', basicAuth, async (req, res) => {
     .populate('personalDetails.stateOfOrigin', '_id name')
     .populate('personalDetails.localGovOfOrigin', '_id name')
     .populate('createdBy', '-_id name');
-  if (!pilgrim) return res.status(404).send('Pilgrim not found');
+  if (!pilgrim) return res.status(404).json({ error: 'Pilgrim not found' });
 
-  return res.status(200).send(pilgrim);
+  return res.status(200).json(pilgrim);
 });
 
 router.get('/pilgrims', basicAuth, async (req, res) => {
@@ -91,14 +91,14 @@ router.get('/allocations/:idOrEmailOrPhone', basicAuth, async (req, res) => {
         { 'personalDetails.alternatePhone': idOrEmailOrPhone },
       ],
     });
-    if (!pilgrim) return res.status(404).send('Pilgrim not found');
+    if (!pilgrim) return res.status(404).json({ error: 'Pilgrim not found' });
     query.pilgrim = pilgrim._id;
   }
 
   const yearId = req.query.yearId;
   if (yearId) {
     if (!mongoose.Types.ObjectId.isValid(yearId))
-      return res.status(400).send('Invalid year id');
+      return res.status(400).json({ error: 'Invalid year id' });
     query.enrollmentYear = yearId;
   }
 
@@ -158,14 +158,14 @@ router.get(
           { 'personalDetails.alternatePhone': idOrEmailOrPhone },
         ],
       });
-      if (!pilgrim) return res.status(404).send('Pilgrim not found');
+      if (!pilgrim) return res.status(404).json({ error: 'Pilgrim not found' });
       query.pilgrim = pilgrim._id;
     }
 
     const yearId = req.query.yearId;
     if (yearId) {
       if (!mongoose.Types.ObjectId.isValid(yearId))
-        return res.status(400).send('Invalid year id');
+        return res.status(400).json({ error: 'Invalid year id' });
       query.enrollmentYear = yearId;
     }
 
@@ -191,7 +191,7 @@ router.get('/allocations/:zoneId/zone', basicAuth, async (req, res) => {
   const zoneId = req.params.zoneId;
 
   if (!mongoose.Types.ObjectId.isValid(zoneId))
-    return res.status(400).send('Invalid ID');
+    return res.status(400).json({ error: 'Invalid ID' });
   const query = {
     deleted: false,
     migrated: false,
@@ -201,7 +201,7 @@ router.get('/allocations/:zoneId/zone', basicAuth, async (req, res) => {
   const yearId = req.query.yearId;
   if (yearId) {
     if (!mongoose.Types.ObjectId.isValid(yearId))
-      return res.status(400).send('Invalid year id');
+      return res.status(400).json({ error: 'Invalid year id' });
     query.enrollmentYear = yearId;
   }
 
@@ -228,7 +228,7 @@ router.get(
       .populate('enrollmentZone');
 
     if (!allocation)
-      return res.status(404).send('Allocation with code not found!');
+      return res.status(404).json({ error: 'Allocation with code not found!' });
     res.json(allocation);
   }
 );

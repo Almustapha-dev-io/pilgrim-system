@@ -21,30 +21,38 @@ router.get('/by-state/:id', [auth, validateObjectId], async (req, res) => {
     .populate('state', '_id name')
     .select('_id name state');
   if (!lgas)
-    return res.status(404).send("Local Gov't with given State ID not found.");
+    return res
+      .status(404)
+      .json({ error: "Local Gov't with given State ID not found." });
 
   res.json(lgas);
 });
 
 router.get('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
   const lga = await Lga.findById(req.params.id);
-  if (!lga) return res.status(404).send("Local Gov't with given ID not found.");
+  if (!lga)
+    return res
+      .status(404)
+      .json({ error: "Local Gov't with given ID not found." });
 
   res.json(lga);
 });
 
 router.post('/', [auth], async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const { name, stateId } = req.body;
 
   const state = await State.findById(stateId);
-  if (!state) return res.status(404).send('State with give ID not found');
+  if (!state)
+    return res.status(404).json({ error: 'State with give ID not found' });
 
   let lga = await Lga.findOne({ name, state: stateId });
   if (lga)
-    return res.status(400).send(`${name} local government already exists.`);
+    return res
+      .status(400)
+      .json({ error: `${name} local government already exists.` });
 
   lga = new Lga({ name, state: stateId });
 
@@ -55,7 +63,7 @@ router.post('/', [auth], async (req, res) => {
 
 router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
   const { error } = validateForUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   const lga = await Lga.findByIdAndUpdate(
     req.params.id,
@@ -64,7 +72,10 @@ router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
     },
     { new: true, useFindAndModify: false }
   );
-  if (!lga) return res.status(404).send("Local gov't with given ID not found.");
+  if (!lga)
+    return res
+      .status(404)
+      .json({ error: "Local gov't with given ID not found." });
 
   res.json(lga);
 });
@@ -77,7 +88,9 @@ router.delete(
       useFindAndModify: false,
     });
     if (!lga)
-      return res.status(404).send("Local gov't with given ID not found.");
+      return res
+        .status(404)
+        .json({ error: "Local gov't with given ID not found." });
 
     res.json(lga);
   }
