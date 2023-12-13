@@ -1,0 +1,124 @@
+<ng-container *ngIf="loader.loaderVisible then load; else showForm"></ng-container>
+
+<ng-template #load>
+  <app-loader></app-loader>
+</ng-template>
+
+<ng-template #showForm>
+  <form [formGroup]="passportDetailsForm">
+    <br />
+    <h5>Passport details</h5>
+    <hr style="margin-top: 0px;" />
+
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 mx-auto">
+        <label for="passportType" [class.text-danger]="passportType.touched && passportType.invalid">
+          Passport Type
+        </label>
+        <select
+          class="form-control form-control-sm"
+          [class.error-control]="passportType.touched && passportType.invalid"
+          type="text"
+          id="passportType"
+          formControlName="passportType"
+          (change)="valueChange()">
+          <option [value]="null" selected hidden>Select passport type</option>
+          <option *ngFor="let p of passportTypes" [value]="p">{{ p | uppercase }}</option>
+        </select>
+
+        <div class="text-danger mt-1" *ngIf="passportType.touched && passportType.invalid">
+          <div *ngIf="passportType.errors.required">
+            Select pilgrim's passport type.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6 col-sm-12 mx-auto">
+        <label for="passportNumber" [class.text-danger]="passportNumber.touched && passportNumber.invalid">
+          Passport Number
+        </label>
+        <input
+          type="text"
+          id="passportNumber"
+          [class.error-control]="passportNumber.touched && passportNumber.invalid"
+          class="form-control form-control-sm"
+          formControlName="passportNumber"
+          (keyup)="valueChange()">
+
+        <div class="text-danger mt-1" *ngIf="passportNumber.touched && passportNumber.invalid">
+          <div *ngIf="passportNumber.errors.required">
+            This field is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 mx-auto">
+        <label for="dateOfIssue" [class.text-danger]="dateOfIssue.touched && dateOfIssue.invalid">
+          Date of Issue
+        </label>
+        <input
+          type="date"
+          id="dateOfIssue"
+          [class.error-control]="dateOfIssue.touched && dateOfIssue.invalid"
+          class="form-control form-control-sm"
+          formControlName="dateOfIssue"
+          (change)="valueChange()">
+
+        <div class="text-danger mt-1" *ngIf="dateOfIssue.touched && dateOfIssue.invalid">
+          <div *ngIf="dateOfIssue.errors.required || dateOfIssue.errors.greaterThanToday">
+            Select a valid date.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6 col-sm-12 mx-auto">
+        <label for="expiryDate" [class.text-danger]="expiryDate.touched && expiryDate.invalid">
+          Expiry Date
+        </label>
+        <input
+          type="date"
+          id="expiryDate"
+          [class.error-control]="expiryDate.touched && expiryDate.invalid"
+          class="form-control form-control-sm"
+          formControlName="expiryDate"
+          (change)="valueChange()">
+
+        <div class="text-danger mt-1" *ngIf="expiryDate.touched && expiryDate.invalid">
+          <div *ngIf="expiryDate.errors.required">
+            Select a valid date.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 mx-auto">
+        <label for="placeOfIssue" [class.text-danger]="placeOfIssue.touched && placeOfIssue.invalid">
+          Place of Issue
+        </label>
+                  <select
+          class="form-control form-control-sm"
+          [class.error-control]="placeOfIssue.touched && placeOfIssue.invalid"
+          type="text"
+          id="placeOfIssue"
+          formControlName="placeOfIssue"
+          (change)="valueChange(true)">
+          <option [value]="null" selected hidden>Select place of issue</option>
+          <option *ngFor="let s of states" [value]="s.name">{{ s.name }}</option>
+        </select>
+
+          <div class="text-danger mt-1" *ngIf="placeOfIssue.touched && placeOfIssue.invalid">
+            <div *ngIf="placeOfIssue.errors.required">
+              This field is required.
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group col-md-6 col-sm-12 mx-auto">
+
+      </div>
+    </div>
+  </form>
+</ng-template>
