@@ -10,6 +10,7 @@ const app = express();
 const accessLogPath = path.join(__dirname, 'access-logs.log');
 const logStream = fs.createWriteStream(accessLogPath, { flags: 'a' });
 
+app.use(express.json());
 app.use(morgan('combined', { stream: logStream }));
 
 // require('./startup/logging').log();
