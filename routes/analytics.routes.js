@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const validateObjectId = require('../middleware/validateObjectId');
@@ -12,69 +11,94 @@ const router = express.Router();
 
 //  All pilgrims
 router.get('/all-pilgrims', auth, async (req, res) => {
-    const count = await Pilgrim.countDocuments();
-    res.send({ count });
+  const count = await Pilgrim.countDocuments();
+  res.json({ count });
 });
 
 router.get('/all-allocations', auth, async (req, res) => {
-    const count = await Allocation.countDocuments({ deleted: false });
-    res.send({ count });
+  const count = await Allocation.countDocuments({ deleted: false });
+  res.json({ count });
 });
 
 // All pilgrims count by year
-router.get('/all-allocations-by-year/:id', [auth, validateObjectId], async (req, res) => {
-    const count = await Allocation.countDocuments({ 'enrollmentYear': req.params.id, deleted: false });
-    res.send({ count });
-});
+router.get(
+  '/all-allocations-by-year/:id',
+  [auth, validateObjectId],
+  async (req, res) => {
+    const count = await Allocation.countDocuments({
+      enrollmentYear: req.params.id,
+      deleted: false,
+    });
+    res.json({ count });
+  }
+);
 
 // All pilgrims count for an lga
-router.get('/lga-allocations-count/:id', [auth, validateObjectId], async (req, res) => {
-    const count =  await Allocation.countDocuments({ 'enrollmentZone': req.params.id, deleted: false });
-    res.send({ count });
-});
+router.get(
+  '/lga-allocations-count/:id',
+  [auth, validateObjectId],
+  async (req, res) => {
+    const count = await Allocation.countDocuments({
+      enrollmentZone: req.params.id,
+      deleted: false,
+    });
+    res.json({ count });
+  }
+);
 
 // All pilgrims count for an lga by year
-router.get('/lga-allocations-count/:id/:yearId', [auth, validateObjectId], async (req, res) => {
+router.get(
+  '/lga-allocations-count/:id/:yearId',
+  [auth, validateObjectId],
+  async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.yearId)) {
-        return res.status(400).send('Invalid Year Id');
+      return res.status(400).send('Invalid Year Id');
     }
 
-    const count =  await Allocation
-        .countDocuments({ 
-            'enrollmentZone': req.params.id,
-            'enrollmentYear': req.params.yearId
-        });
+    const count = await Allocation.countDocuments({
+      enrollmentZone: req.params.id,
+      enrollmentYear: req.params.yearId,
+    });
 
-    res.send({ count });
-});
+    res.json({ count });
+  }
+);
 
 //  All Pilgrims count for all local gov
 router.get('/all-lga-allocations-count', auth, async (req, res) => {
-    const fetchedLocalGovs = await LocalGovernment
-        .find({ code: {$nin: ['00', '01'] }})
-        .select('_id name')
-        .sort('name');
+  const fetchedLocalGovs = await LocalGovernment.find({
+    code: { $nin: ['00', '01'] },
+  })
+    .select('_id name')
+    .sort('name');
 
-    const localGovsPilgrimsCount = [];
-    const localGovs = [];
+  const localGovsPilgrimsCount = [];
+  const localGovs = [];
 
-    let index = fetchedLocalGovs.length - 1;
+  let index = fetchedLocalGovs.length - 1;
 
-    fetchedLocalGovs.forEach(async (lg, i) => {
-        let count = await Allocation.countDocuments({ 'enrollmentZone': lg._id, deleted: false });
-        localGovsPilgrimsCount.push(count);
-        localGovs.push(lg.name)
-
-        if (index === i) return res.send([localGovsPilgrimsCount, localGovs]);
+  fetchedLocalGovs.forEach(async (lg, i) => {
+    let count = await Allocation.countDocuments({
+      enrollmentZone: lg._id,
+      deleted: false,
     });
+    localGovsPilgrimsCount.push(count);
+    localGovs.push(lg.name);
+
+    if (index === i) return res.json([localGovsPilgrimsCount, localGovs]);
+  });
 });
 
 // All pilgrims Pilgrims count for all local gov by year
-router.get('/all-lga-allocations-count/:id', [auth, validateObjectId], async (req, res) => {
-    const fetchedLocalGovs = await LocalGovernment
-        .find({ code: {$nin: ['00', '01'] }})
-        .select('_id name')
-        .sort('name');
+router.get(
+  '/all-lga-allocations-count/:id',
+  [auth, validateObjectId],
+  async (req, res) => {
+    const fetchedLocalGovs = await LocalGovernment.find({
+      code: { $nin: ['00', '01'] },
+    })
+      .select('_id name')
+      .sort('name');
 
     const localGovsPilgrimsCount = [];
     const localGovs = [];
@@ -82,18 +106,18 @@ router.get('/all-lga-allocations-count/:id', [auth, validateObjectId], async (re
     let index = fetchedLocalGovs.length - 1;
 
     fetchedLocalGovs.forEach(async (lg, i) => {
-        let count = await Allocation
-            .countDocuments({ 
-                'enrollmentZone': lg._id,
-                'enrollmentYear': req.params.id,
-                deleted: false
-            });
+      let count = await Allocation.countDocuments({
+        enrollmentZone: lg._id,
+        enrollmentYear: req.params.id,
+        deleted: false,
+      });
 
-        localGovsPilgrimsCount.push(count);
-        localGovs.push(lg.name)
+      localGovsPilgrimsCount.push(count);
+      localGovs.push(lg.name);
 
-        if (index === i) return res.send([localGovsPilgrimsCount, localGovs]);
+      if (index === i) return res.json([localGovsPilgrimsCount, localGovs]);
     });
-});
+  }
+);
 
 module.exports = router;

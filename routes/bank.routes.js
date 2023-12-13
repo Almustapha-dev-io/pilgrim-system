@@ -15,7 +15,7 @@ const { Bank, validate } = require('../models/bank.model');
  *          Bank:
  *              type: object
  *              required:
- *                  - _id 
+ *                  - _id
  *                  - name
  *              properties:
  *                  _id:
@@ -36,7 +36,6 @@ const { Bank, validate } = require('../models/bank.model');
  *  description: API for bnaks
  */
 
-
 /**
  * @swagger
  * /banks/:
@@ -55,79 +54,97 @@ const { Bank, validate } = require('../models/bank.model');
  */
 
 router.get('/', auth, async (req, res) => {
-    const banks = await Bank.find({ active: true })
-        .sort('name')
-        .select('_id name');
-    
-    res.send(banks);
+  const banks = await Bank.find({ active: true })
+    .sort('name')
+    .select('_id name');
+
+  res.json(banks);
 });
 
 router.get('/inactive', auth, async (req, res) => {
-    const banks = await Bank.find({ active: false })
-        .sort('name')
-        .select('_id name');
-    
-    res.send(banks);
+  const banks = await Bank.find({ active: false })
+    .sort('name')
+    .select('_id name');
+
+  res.json(banks);
 });
 
 router.get('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
-    const bank = await Bank.findById(req.params.id);
-    if (!bank) return res.status(404).send('Bank with given ID not found.');
+  const bank = await Bank.findById(req.params.id);
+  if (!bank) return res.status(404).send('Bank with given ID not found.');
 
-    res.send(bank);
+  res.json(bank);
 });
 
 router.post('/', [auth, superAdmin], async (req, res) => {
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-    
-    const { name } = req.body;
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    let bank = await Bank.findOne({ name });
-    if (bank) return res.status(400).send(`${name} bank already exists.`);
+  const { name } = req.body;
 
-    bank = new Bank(_.pick(req.body, ['name']));
+  let bank = await Bank.findOne({ name });
+  if (bank) return res.status(400).send(`${name} bank already exists.`);
 
-    await bank.save();
+  bank = new Bank(_.pick(req.body, ['name']));
 
-    res.send(bank);
+  await bank.save();
+
+  res.json(bank);
 });
 
 router.put('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
-    const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validateForUpdate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    const bank = await Bank.findByIdAndUpdate(req.params.id, {
-        $set: _.pick(req.body, ['name'])
-    }, { new: true, useFindAndModify: false });
-    if (!bank) return res.status(404).send('Bank with given ID not found.');
+  const bank = await Bank.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: _.pick(req.body, ['name']),
+    },
+    { new: true, useFindAndModify: false }
+  );
+  if (!bank) return res.status(404).send('Bank with given ID not found.');
 
-    res.send(bank);
+  res.json(bank);
 });
 
-router.put('/activate/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+router.put(
+  '/activate/:id',
+  [auth, superAdmin, validateObjectId],
+  async (req, res) => {
     const bank = await Bank.findById(req.params.id);
     if (!bank) return res.status(404).send('Bank with given ID not found.');
 
     bank.active = true;
     await bank.save();
-    res.send(bank);
-});
+    res.json(bank);
+  }
+);
 
-router.put('/deactivate/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
+router.put(
+  '/deactivate/:id',
+  [auth, superAdmin, validateObjectId],
+  async (req, res) => {
     const bank = await Bank.findById(req.params.id);
     if (!bank) return res.status(404).send('Bank with given ID not found.');
 
     bank.active = false;
     await bank.save();
-    res.send(bank);
-});
+    res.json(bank);
+  }
+);
 
-router.delete('/:id', [auth, superAdmin, validateObjectId], async (req, res) => {
-    const bank = await Bank.findByIdAndRemove(req.params.id, { useFindAndModify: false });
+router.delete(
+  '/:id',
+  [auth, superAdmin, validateObjectId],
+  async (req, res) => {
+    const bank = await Bank.findByIdAndRemove(req.params.id, {
+      useFindAndModify: false,
+    });
     if (!bank) return res.status(404).send('Bank with given ID not found.');
 
-    res.send(bank);
-});
+    res.json(bank);
+  }
+);
 
 module.exports = router;

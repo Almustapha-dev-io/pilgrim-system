@@ -12,7 +12,7 @@ const router = express.Router();
  *          Auth:
  *              type: object
  *              required:
- *                  - email 
+ *                  - email
  *                  - password
  *              properties:
  *                  email:
@@ -32,7 +32,6 @@ const router = express.Router();
  *  name: Auths
  *  description: API for user authentication
  */
-
 
 /**
  * @swagger
@@ -55,36 +54,34 @@ const router = express.Router();
  *                               $ref: '#components/schemas/Auth'
  */
 router.post('/', async (req, res) => {
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    const user = await User
-        .findOne({ email })
-        .populate('role', '_id name');
-    if (!user) return res.status(400).send('Invalid email or password.');
-    
-    const validPassword = await bcrypt.compare(password, user.password);
+  const user = await User.findOne({ email }).populate('role', '_id name');
+  if (!user) return res.status(400).send('Invalid email or password.');
 
-    if (!validPassword) return res.status(400).send('Invalid email or password');
-    
-    const token = user.generateAuthToken();
+  const validPassword = await bcrypt.compare(password, user.password);
 
-    user.password = undefined;
-    user.__v = undefined;
-    user.dateCreated = undefined;
+  if (!validPassword) return res.status(400).send('Invalid email or password');
 
-    res.send({ token, user });
+  const token = user.generateAuthToken();
+
+  user.password = undefined;
+  user.__v = undefined;
+  user.dateCreated = undefined;
+
+  res.json({ token, user });
 });
 
 function validate(user) {
-    const schema = {
-        email: Joi.string().min(5).max(50).required().email(),
-        password: Joi.string().min(5).max(1023).required()
-    };
+  const schema = {
+    email: Joi.string().min(5).max(50).required().email(),
+    password: Joi.string().min(5).max(1023).required(),
+  };
 
-    return Joi.validate(user, schema);
+  return Joi.validate(user, schema);
 }
 
 module.exports = router;

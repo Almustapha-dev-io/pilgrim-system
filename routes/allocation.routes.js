@@ -1,36 +1,50 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { Allocation, validateForUpdate, validate } = require('../models/allocation.model');
+const {
+  Allocation,
+  validateForUpdate,
+  validate,
+} = require('../models/allocation.model');
 const { Year } = require('../models/years.model');
 const { LocalGovernment } = require('../models/localGovernment.model');
 const { Seat } = require('../models/seat.model');
 const { Pilgrim } = require('../models/pilgrim.model');
 
-const { 
-    initiator, 
-    reviewer, 
-    initiator_admin, 
-    admin_reviewer,
-    initiator_reviewer_admin
+const {
+  initiator,
+  reviewer,
+  initiator_admin,
+  admin_reviewer,
+  initiator_reviewer_admin,
 } = require('../middleware/role');
 const auth = require('../middleware/auth');
 const validateObjectId = require('../middleware/validateObjectId');
 
-
 const router = express();
 
-router.get('/:id', [auth, initiator_admin, validateObjectId], async (req, res) => {
-    const allocation = await Allocation
-        .findById(req.params.id)
-        .populate('pilgrim')
-        .populate('enrollmentZone', '_id name code')
-        .populate('createdBy', '_id name');
-    if (!allocation) return res.status(404).send('Allocation with the given number has not been registered in your zone.');
+router.get(
+  '/:id',
+  [auth, initiator_admin, validateObjectId],
+  async (req, res) => {
+    const allocation = await Allocation.findById(req.params.id)
+      .populate('pilgrim')
+      .populate('enrollmentZone', '_id name code')
+      .populate('createdBy', '_id name');
+    if (!allocation)
+      return res
+        .status(404)
+        .send(
+          'Allocation with the given number has not been registered in your zone.'
+        );
 
-    return res.send(allocation);
-});
+    return res.json(allocation);
+  }
+);
 
-router.get('/year/:id/:type', [auth, initiator_admin, validateObjectId], async (req, res) => {
+router.get(
+  '/year/:id/:type',
+  [auth, initiator_admin, validateObjectId],
+  async (req, res) => {
     const pageSize = +req.query.pageSize || 5;
     const page = +req.query.page || 1;
 
@@ -38,40 +52,9 @@ router.get('/year/:id/:type', [auth, initiator_admin, validateObjectId], async (
     if (!year) return res.status(400).send('Invalid year.');
 
     const query = {
-        deleted: false,
-        enrollmentZone: req.userLga,
-        enrollmentYear: year._id
-    };
-
-    if (req.params.type === 'active') query.migrated = false;
-    else if (req.params.type === 'migrated') query.migrated = true;
-    else if (req.params.type === 'deleted') query.deleted = true;
-    else return res.status(400).send('Invalid type');
-
-    const totalDocs = await Allocation.countDocuments(query);
-    const allocations = await Allocation
-        .find(query)
-        .populate('pilgrim')
-        .populate('enrollmentZone')
-        .populate('enrollmentYear')
-        .populate('createdBy', 'name')
-        .sort('enrollmentZone.code')
-        .skip((page-1)*pageSize)
-        .limit(pageSize);
-
-    res.send({ totalDocs, allocations });
-});
-
-router.get('/zone/:id/year/:yearId/:type', [auth, reviewer, validateObjectId], async (req, res) => {
-    const pageSize = +req.query.pageSize || 5;
-    const page = +req.query.page || 1;
-
-    if (!mongoose.Types.ObjectId.isValid(req.params.yearId)) res.status(400).send('Invalid year ID.');
-
-    const query = {
-        deleted: false,
-        enrollmentZone: req.params.id,
-        enrollmentYear: req.params.yearId
+      deleted: false,
+      enrollmentZone: req.userLga,
+      enrollmentYear: year._id,
     };
 
     if (req.params.type === 'active') query.migrated = false;
@@ -81,302 +64,407 @@ router.get('/zone/:id/year/:yearId/:type', [auth, reviewer, validateObjectId], a
 
     const totalDocs = await Allocation.countDocuments(query);
     const allocations = await Allocation.find(query)
-        .populate('pilgrim')
-        .populate('enrollmentZone')
-        .populate('enrollmentYear')
-        .populate('createdBy', 'name')
-        .sort('enrollmentZone.code')
-        .skip((page-1)*pageSize)
-        .limit(pageSize);
+      .populate('pilgrim')
+      .populate('enrollmentZone')
+      .populate('enrollmentYear')
+      .populate('createdBy', 'name')
+      .sort('enrollmentZone.code')
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
 
-    res.send({ allocations, totalDocs });
-});
+    res.json({ totalDocs, allocations });
+  }
+);
+
+router.get(
+  '/zone/:id/year/:yearId/:type',
+  [auth, reviewer, validateObjectId],
+  async (req, res) => {
+    const pageSize = +req.query.pageSize || 5;
+    const page = +req.query.page || 1;
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.yearId))
+      res.status(400).send('Invalid year ID.');
+
+    const query = {
+      deleted: false,
+      enrollmentZone: req.params.id,
+      enrollmentYear: req.params.yearId,
+    };
+
+    if (req.params.type === 'active') query.migrated = false;
+    else if (req.params.type === 'migrated') query.migrated = true;
+    else if (req.params.type === 'deleted') query.deleted = true;
+    else return res.status(400).send('Invalid type');
+
+    const totalDocs = await Allocation.countDocuments(query);
+    const allocations = await Allocation.find(query)
+      .populate('pilgrim')
+      .populate('enrollmentZone')
+      .populate('enrollmentYear')
+      .populate('createdBy', 'name')
+      .sort('enrollmentZone.code')
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.json({ allocations, totalDocs });
+  }
+);
 
 router.put('/add-payment/:id', [auth, validateObjectId], async (req, res) => {
-    const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validateForUpdate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    const allocation = await Allocation.findById(req.params.id);
-    if (!allocation) return res.status(404).send('Allocation with given ID not found');
+  const allocation = await Allocation.findById(req.params.id);
+  if (!allocation)
+    return res.status(404).send('Allocation with given ID not found');
 
-    const { paymentHistory } = req.body;
-    if (!paymentHistory || paymentHistory.length < 1) {
-        return res.status(400).send('Provide atleast one transaction.');
-    }
+  const { paymentHistory } = req.body;
+  if (!paymentHistory || paymentHistory.length < 1) {
+    return res.status(400).send('Provide atleast one transaction.');
+  }
 
-    const duplicateTransactions = allocation.paymentHistory.filter(a => paymentHistory.find(b => {
-        return (a.tellerNumber === b.tellerNumber) || (a.receiptNumber === b.receiptNumber)
-    }));
-    if (!duplicateTransactions.length) return res.status(400).send('Duplicate transactions were spotted.');
+  const duplicateTransactions = allocation.paymentHistory.filter((a) =>
+    paymentHistory.find((b) => {
+      return (
+        a.tellerNumber === b.tellerNumber || a.receiptNumber === b.receiptNumber
+      );
+    })
+  );
+  if (!duplicateTransactions.length)
+    return res.status(400).send('Duplicate transactions were spotted.');
 
-    allocation.paymentHistory = [...paymentHistory];
-    await allocation.save();
-    res.send(allocation);
+  allocation.paymentHistory = [...paymentHistory];
+  await allocation.save();
+  res.json(allocation);
 });
 
 router.put('/migrate', auth, async (req, res) => {
-    const { yearId, allocationNumber, allocationId } = req.body;
-    if (!mongoose.Types.ObjectId.isValid(allocationId)) return res.status(400).send('Invalid allocation id');
-    if (!mongoose.Types.ObjectId.isValid(yearId)) return res.status(400).send('Invalid year id');
-    if (!allocationNumber || allocationNumber <= 0) return res.status(400).send('Invalid allocation number');
+  const { yearId, allocationNumber, allocationId } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(allocationId))
+    return res.status(400).send('Invalid allocation id');
+  if (!mongoose.Types.ObjectId.isValid(yearId))
+    return res.status(400).send('Invalid year id');
+  if (!allocationNumber || allocationNumber <= 0)
+    return res.status(400).send('Invalid allocation number');
 
-    const previousAllocation = await Allocation.findById(allocationId).populate('pilgrim');
-    if (!previousAllocation) return res.status(400).send('Allocation not found');
+  const previousAllocation = await Allocation.findById(allocationId).populate(
+    'pilgrim'
+  );
+  if (!previousAllocation) return res.status(400).send('Allocation not found');
 
-    if (!previousAllocation.pilgrim) return res.status(404).send('Pilgrim with given ID not found.');
-    if (previousAllocation.deleted) return res.status(400).send('Cannot migrate allocation flagged for deletion.');
-    
-    let year = await Year.findById(yearId);
-    if (!year) return res.status(404).send('Year not found');
-    
-    const pilgrimAllocated = await Allocation.findOne({ 
-        pilgrim: previousAllocation.pilgrim._id,
-        enrollmentYear: year._id,
-        migrated: false,
-        deleted: false
-    });
-    if (pilgrimAllocated) return res.status(400).send('Pilgrim already allocated for the selected hajj year.');
+  if (!previousAllocation.pilgrim)
+    return res.status(404).send('Pilgrim with given ID not found.');
+  if (previousAllocation.deleted)
+    return res
+      .status(400)
+      .send('Cannot migrate allocation flagged for deletion.');
 
-    const seatAllocations = year.seatAllocations;
-    if (!seatAllocations) return res.status(400).send('No allocations for this year');
+  let year = await Year.findById(yearId);
+  if (!year) return res.status(404).send('Year not found');
 
-    const zoneAllocations = seatAllocations.find(al => al.zone.toString() === previousAllocation.enrollmentZone.toString());
-    if (!zoneAllocations) return res.status(400).send('No seat allocations for this registration zone. Contact admin');
+  const pilgrimAllocated = await Allocation.findOne({
+    pilgrim: previousAllocation.pilgrim._id,
+    enrollmentYear: year._id,
+    migrated: false,
+    deleted: false,
+  });
+  if (pilgrimAllocated)
+    return res
+      .status(400)
+      .send('Pilgrim already allocated for the selected hajj year.');
 
-    if (zoneAllocations.seatsAllocated < allocationNumber) {
-        return res.status(400).send(`Only ${zoneAllocations.seatsAllocated} allocations are allowed for this registration center.`)
-    }
+  const seatAllocations = year.seatAllocations;
+  if (!seatAllocations)
+    return res.status(400).send('No allocations for this year');
 
-    const zone = await LocalGovernment.findById(previousAllocation.enrollmentZone);
-    if (!zone) return res.status(400).send('Invalid enrollment zone.');
+  const zoneAllocations = seatAllocations.find(
+    (al) => al.zone.toString() === previousAllocation.enrollmentZone.toString()
+  );
+  if (!zoneAllocations)
+    return res
+      .status(400)
+      .send('No seat allocations for this registration zone. Contact admin');
 
-    let seat =  await Seat.findOne({
-        seatNumber: allocationNumber,
-        zone: zone._id,
-        year: year._id
-    });
-    if (seat) return res.status(400).send('The selected allocation number is unavailable');
+  if (zoneAllocations.seatsAllocated < allocationNumber) {
+    return res
+      .status(400)
+      .send(
+        `Only ${zoneAllocations.seatsAllocated} allocations are allowed for this registration center.`
+      );
+  }
 
-    const passportExpiryDate = new Date(previousAllocation.pilgrim.passportDetails.expiryDate).getTime();
-    if (passportExpiryDate <= new Date().getTime()) {
-        return res.status(400).send('Pilgrim\'s passport is expired. Please update passport details.');
-    }
+  const zone = await LocalGovernment.findById(
+    previousAllocation.enrollmentZone
+  );
+  if (!zone) return res.status(400).send('Invalid enrollment zone.');
 
-    const code = Allocation.generateCode(
-        allocationNumber, 
-        year.year, 
-        zone.code
-    );
-    let allocation = await Allocation.findOne({ code });
-    if (allocation) return res.status(400).send(`${code} is unavailable`);
+  let seat = await Seat.findOne({
+    seatNumber: allocationNumber,
+    zone: zone._id,
+    year: year._id,
+  });
+  if (seat)
+    return res
+      .status(400)
+      .send('The selected allocation number is unavailable');
 
-    seat = new Seat({
-        seatNumber: allocationNumber,
-        zone: zone._id,
-        year: year._id
-    });
+  const passportExpiryDate = new Date(
+    previousAllocation.pilgrim.passportDetails.expiryDate
+  ).getTime();
+  if (passportExpiryDate <= new Date().getTime()) {
+    return res
+      .status(400)
+      .send("Pilgrim's passport is expired. Please update passport details.");
+  }
 
-    allocation = new Allocation({
-        pilgrim: previousAllocation.pilgrim._id,
-        hajjExperience: previousAllocation.hajjExperience,
-        lastHajjYear: previousAllocation.lastHajjYear,
-        enrollmentZone: previousAllocation.enrollmentZone,
-        paymentHistory: previousAllocation.paymentHistory,
-        paymentHistory: previousAllocation.paymentHistory,
-        code,
-        enrollmentYear: year._id,
-        enrollmentAllocationNumber: allocationNumber,
-        createdBy: req.user._id
-    });
+  const code = Allocation.generateCode(allocationNumber, year.year, zone.code);
+  let allocation = await Allocation.findOne({ code });
+  if (allocation) return res.status(400).send(`${code} is unavailable`);
 
-    previousAllocation.migrated = true;
+  seat = new Seat({
+    seatNumber: allocationNumber,
+    zone: zone._id,
+    year: year._id,
+  });
 
-    await allocation.save();
-    await previousAllocation.save();
-    await seat.save();
+  allocation = new Allocation({
+    pilgrim: previousAllocation.pilgrim._id,
+    hajjExperience: previousAllocation.hajjExperience,
+    lastHajjYear: previousAllocation.lastHajjYear,
+    enrollmentZone: previousAllocation.enrollmentZone,
+    paymentHistory: previousAllocation.paymentHistory,
+    paymentHistory: previousAllocation.paymentHistory,
+    code,
+    enrollmentYear: year._id,
+    enrollmentAllocationNumber: allocationNumber,
+    createdBy: req.user._id,
+  });
 
-    // const session = await mongoose.startSession();
-    // await session.withTransaction(() => Promise.all([
-    //     allocation.save({ session }),
-    //     previousAllocation.save({ session }),
-    //      seat.save({ session })
-    // ]));
+  previousAllocation.migrated = true;
 
-    res.send({ allocation, previousAllocation });
+  await allocation.save();
+  await previousAllocation.save();
+  await seat.save();
+
+  // const session = await mongoose.startSession();
+  // await session.withTransaction(() => Promise.all([
+  //     allocation.save({ session }),
+  //     previousAllocation.save({ session }),
+  //      seat.save({ session })
+  // ]));
+
+  res.json({ allocation, previousAllocation });
 });
 
 router.post('/', [auth, initiator], async (req, res) => {
-    const { error} = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    const {
-        pilgrim: pilgrimId,
-        enrollmentYear,
-        enrollmentZone,
-        enrollmentAllocationNumber
-    } = req.body;
+  const {
+    pilgrim: pilgrimId,
+    enrollmentYear,
+    enrollmentZone,
+    enrollmentAllocationNumber,
+  } = req.body;
 
-    const pilgrim = await Pilgrim.findById(pilgrimId);
-    if (!pilgrim) return res.status(404).send('Pilgrim not found!');
+  const pilgrim = await Pilgrim.findById(pilgrimId);
+  if (!pilgrim) return res.status(404).send('Pilgrim not found!');
 
-    const existing = await Allocation.findOne({
-        pilgrim: pilgrimId,
-        enrollmentYear,
-        enrollmentZone
-    });
-    if (existing) return res.status(400).send('Pilgrim already allocated for the year. Please update');
+  const existing = await Allocation.findOne({
+    pilgrim: pilgrimId,
+    enrollmentYear,
+    enrollmentZone,
+  });
+  if (existing)
+    return res
+      .status(400)
+      .send('Pilgrim already allocated for the year. Please update');
 
-    const year = await Year.findOne({ active: true, _id: enrollmentYear });
-    if (!year) {
-        return res.status(400).send(`Hajj registration for ${enrollmentYear} not opened yet.`);
-    }
-    
-    const zone = await LocalGovernment.findById(enrollmentZone);
-    if (!zone) return res.status(400).send('Invalid enrollment center');
-    
-    if (zone._id.toString() !== req.userLga.toString()) {
-        return res.status(400).send('You cannot register pilgrims to zone.');
-    }
-    
-    const yearAllocations = year.seatAllocations.find(lg => lg.zone.toString() === zone._id.toString());
-    if (!yearAllocations) return res.status(400).send('Seats not allocated to zone');
+  const year = await Year.findOne({ active: true, _id: enrollmentYear });
+  if (!year) {
+    return res
+      .status(400)
+      .send(`Hajj registration for ${enrollmentYear} not opened yet.`);
+  }
 
-    const allocatedSeats = yearAllocations.seatsAllocated;
-    if (!allocatedSeats) return res.status(400).send('Seats not allocated to selected Center');
-    if (allocatedSeats < enrollmentAllocationNumber) return res.status(400).send('Invalid allocation number.');
+  const zone = await LocalGovernment.findById(enrollmentZone);
+  if (!zone) return res.status(400).send('Invalid enrollment center');
 
-    let seat = await Seat.findOne({
-        seatNumber: enrollmentAllocationNumber,
-        zone: zone._id,
-        year: year._id
-    });
-    if (seat) return res.status(400).send('Selected allocation number occupied.');
-    const code = Allocation.generateCode(
-        enrollmentAllocationNumber, 
-        year.year, 
-        zone.code
-    );
+  if (zone._id.toString() !== req.userLga.toString()) {
+    return res.status(400).send('You cannot register pilgrims to zone.');
+  }
 
-    let allocation = await Allocation.findOne({ code });
-    if (allocation) return res.status(400).send(`${code} is unavailable`);
+  const yearAllocations = year.seatAllocations.find(
+    (lg) => lg.zone.toString() === zone._id.toString()
+  );
+  if (!yearAllocations)
+    return res.status(400).send('Seats not allocated to zone');
 
-    allocation = new Allocation({
-        ...req.body,
-        code,
-        createdBy: req.user._id
-    });
-    seat = new Seat ({
-        seatNumber: enrollmentAllocationNumber,
-        zone: enrollmentZone,
-        year: enrollmentYear
-    });
+  const allocatedSeats = yearAllocations.seatsAllocated;
+  if (!allocatedSeats)
+    return res.status(400).send('Seats not allocated to selected Center');
+  if (allocatedSeats < enrollmentAllocationNumber)
+    return res.status(400).send('Invalid allocation number.');
 
-    await allocation.save();
-    await seat.save();
+  let seat = await Seat.findOne({
+    seatNumber: enrollmentAllocationNumber,
+    zone: zone._id,
+    year: year._id,
+  });
+  if (seat) return res.status(400).send('Selected allocation number occupied.');
+  const code = Allocation.generateCode(
+    enrollmentAllocationNumber,
+    year.year,
+    zone.code
+  );
 
-    // const session = await mongoose.startSession();
-    // await session.withTransaction(() => Promise.all([
-    //     Allocation.create([allocation], { session }),
-    //     Seat.create([seat], { session })
-    // ]));
+  let allocation = await Allocation.findOne({ code });
+  if (allocation) return res.status(400).send(`${code} is unavailable`);
 
-    res.send({ allocation, seat });
+  allocation = new Allocation({
+    ...req.body,
+    code,
+    createdBy: req.user._id,
+  });
+  seat = new Seat({
+    seatNumber: enrollmentAllocationNumber,
+    zone: enrollmentZone,
+    year: enrollmentYear,
+  });
+
+  await allocation.save();
+  await seat.save();
+
+  // const session = await mongoose.startSession();
+  // await session.withTransaction(() => Promise.all([
+  //     Allocation.create([allocation], { session }),
+  //     Seat.create([seat], { session })
+  // ]));
+
+  res.json({ allocation, seat });
 });
 
 router.put('/:id/restore', [auth, validateObjectId], async (req, res) => {
-    const { error } = validateForUpdate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validateForUpdate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    const { enrollmentAllocationNumber } = req.body;
-    if (!enrollmentAllocationNumber) {
-        return res.status(400).send('Provide a new allocation number.');
-    }
+  const { enrollmentAllocationNumber } = req.body;
+  if (!enrollmentAllocationNumber) {
+    return res.status(400).send('Provide a new allocation number.');
+  }
 
-    const allocation = await Allocation.findById(req.params.id).populate('pilgrim');
-    if (!allocation) return res.status(400).send('Invalid allocation id.');
+  const allocation = await Allocation.findById(req.params.id).populate(
+    'pilgrim'
+  );
+  if (!allocation) return res.status(400).send('Invalid allocation id.');
 
-    if (allocation.code || allocation.enrollmentAllocationNumber || !allocation.deleted) {
-        return res.status(400).send('This allocation has been allocated a seat. To change please unassign seat');
-    }
+  if (
+    allocation.code ||
+    allocation.enrollmentAllocationNumber ||
+    !allocation.deleted
+  ) {
+    return res
+      .status(400)
+      .send(
+        'This allocation has been allocated a seat. To change please unassign seat'
+      );
+  }
 
-    const year = await Year.findOne({
-        active: true,
-        _id: allocation.enrollmentYear
-    });
-    if (!year) return res.status(400).send(`Hajj registration not opened yet.`);
+  const year = await Year.findOne({
+    active: true,
+    _id: allocation.enrollmentYear,
+  });
+  if (!year) return res.status(400).send(`Hajj registration not opened yet.`);
 
-    const zone = await LocalGovernment.findById(allocation.enrollmentZone);
-    if (!zone) return res.status(400).send('Invalid enrollment zone.');
+  const zone = await LocalGovernment.findById(allocation.enrollmentZone);
+  if (!zone) return res.status(400).send('Invalid enrollment zone.');
 
-    const zoneAllocations = year.seatAllocations.find(lg => lg.zone.toString() === zone._id.toString());
-    if (!zoneAllocations) return res.status(400).send('Seats not allocated to specified Center.');
+  const zoneAllocations = year.seatAllocations.find(
+    (lg) => lg.zone.toString() === zone._id.toString()
+  );
+  if (!zoneAllocations)
+    return res.status(400).send('Seats not allocated to specified Center.');
 
-    const allocatedSeats = zoneAllocations.seatsAllocated;
-    if (!allocatedSeats) return res.status(400).send('Seats not allocated to selected Center');
-    if (allocatedSeats < enrollmentAllocationNumber) return res.status(400).send('Invalid allocation number.');
+  const allocatedSeats = zoneAllocations.seatsAllocated;
+  if (!allocatedSeats)
+    return res.status(400).send('Seats not allocated to selected Center');
+  if (allocatedSeats < enrollmentAllocationNumber)
+    return res.status(400).send('Invalid allocation number.');
 
-    let seat = await Seat.findOne({
-        seatNumber: enrollmentAllocationNumber,
-        zone: zone._id,
-        year: year._id
-    });
-    if (seat) return res.status(400).send('Selected allocation number occupied.');
+  let seat = await Seat.findOne({
+    seatNumber: enrollmentAllocationNumber,
+    zone: zone._id,
+    year: year._id,
+  });
+  if (seat) return res.status(400).send('Selected allocation number occupied.');
 
-    const code = Allocation.generateCode(
-        enrollmentAllocationNumber, 
-        year.year, 
-        zone.code
-    );
+  const code = Allocation.generateCode(
+    enrollmentAllocationNumber,
+    year.year,
+    zone.code
+  );
 
-    const existingAllocation = await Allocation.findOne({ code });
-    if (existingAllocation) return res.status(400).send('Allocation number unavailable');
-    
-    allocation.code = code;
-    allocation.enrollmentAllocationNumber = enrollmentAllocationNumber;
-    allocation.deleted = false;
-    allocation.deletionReason = '';
+  const existingAllocation = await Allocation.findOne({ code });
+  if (existingAllocation)
+    return res.status(400).send('Allocation number unavailable');
 
-    seat = new Seat({
-        seatNumber: enrollmentAllocationNumber,
-        zone: zone._id,
-        year: year._id
-    });
-    
-    await pilgrim.save();
-    await seat.save();
-    
-    // const session = await mongoose.startSession();
-    // await session.withTransaction(() => Promise.all([
-    //     allocation.save({ session }),
-    //     seat.save({ session })
-    // ]));
+  allocation.code = code;
+  allocation.enrollmentAllocationNumber = enrollmentAllocationNumber;
+  allocation.deleted = false;
+  allocation.deletionReason = '';
 
-    res.send({ allocation, seat });
+  seat = new Seat({
+    seatNumber: enrollmentAllocationNumber,
+    zone: zone._id,
+    year: year._id,
+  });
+
+  await pilgrim.save();
+  await seat.save();
+
+  // const session = await mongoose.startSession();
+  // await session.withTransaction(() => Promise.all([
+  //     allocation.save({ session }),
+  //     seat.save({ session })
+  // ]));
+
+  res.json({ allocation, seat });
 });
 
-router.delete('/:id', [auth, admin_reviewer, validateObjectId], async (req, res) => {
+router.delete(
+  '/:id',
+  [auth, admin_reviewer, validateObjectId],
+  async (req, res) => {
     let allocation = await Allocation.findById(req.params.id);
     if (!allocation) return res.status(400).send('Invalid allocation!');
 
     const { deletionReason, fundRefunded, amountRefunded } = req.query;
-    if (!deletionReason) return res.status(400).send('Please provide a reason for deletion.');
+    if (!deletionReason)
+      return res.status(400).send('Please provide a reason for deletion.');
     // if (!fundRefunded) return res.status(400).send('Invalid fund refund details sent.');
     // if (!amountRefunded || Number.isNaN(Number(amountRefunded)) || Number(amountRefunded) < 0) {
     //     return res.status(400).send('Send a valid refund amount.');
     // }
 
     await Seat.findOneAndDelete({
-        zone: allocation.enrollmentZone,
-        seatNumber: allocation.enrollmentAllocationNumber,
-        year: allocation.enrollmentYear
+      zone: allocation.enrollmentZone,
+      seatNumber: allocation.enrollmentAllocationNumber,
+      year: allocation.enrollmentYear,
     });
 
-    allocation = await Allocation.findByIdAndUpdate(allocation._id, { $set: {
-        deleted: true,
-        deletionReason,
-        code: undefined,
-        enrollmentAllocationNumber: undefined
-    }}, { new: true, useFindAndModify: false });
+    allocation = await Allocation.findByIdAndUpdate(
+      allocation._id,
+      {
+        $set: {
+          deleted: true,
+          deletionReason,
+          code: undefined,
+          enrollmentAllocationNumber: undefined,
+        },
+      },
+      { new: true, useFindAndModify: false }
+    );
 
     // const session = await mongoose.startSession();
     // await session.withTransaction(() => Promise.all([
@@ -393,7 +481,8 @@ router.delete('/:id', [auth, admin_reviewer, validateObjectId], async (req, res)
     //     }}, { new: true, useFindAndModify: false })
     // ]));
 
-    res.send(allocation);
-});
+    res.json(allocation);
+  }
+);
 
 module.exports = router;
